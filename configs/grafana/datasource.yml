@@ -1,0 +1,10 @@
+# config file version
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    url: http://172.80.80.42:9090
+  - name: Loki
+    type: loki
+    url: http://172.80.80.45:3100

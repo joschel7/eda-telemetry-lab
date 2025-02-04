@@ -1,4 +1,5 @@
 name: eda-st
+prefix: ""
 mgmt:
   network: eda-st
   ipv4-subnet: 172.80.80.0/24
@@ -6,40 +7,214 @@ topology:
   nodes:
     leaf1:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.101
+      mgmt-ipv4: 172.80.80.11
       image: ghcr.io/nokia/srlinux:24.10.1
     leaf2:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.102
+      mgmt-ipv4: 172.80.80.12
       image: ghcr.io/nokia/srlinux:24.10.1
     leaf3:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.103
+      mgmt-ipv4: 172.80.80.13
       image: ghcr.io/nokia/srlinux:24.10.1
     leaf4:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.104
+      mgmt-ipv4: 172.80.80.14
       image: ghcr.io/nokia/srlinux:24.10.1
     spine1:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.201
+      mgmt-ipv4: 172.80.80.21
       image: ghcr.io/nokia/srlinux:24.10.1
     spine2:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.202
+      mgmt-ipv4: 172.80.80.22
       image: ghcr.io/nokia/srlinux:24.10.1
     client1:
       kind: linux
+      mgmt-ipv4: 172.80.80.31
       image: ghcr.io/hellt/network-multitool
+      binds:
+        - scripts:/scripts:ro
+      # exec:
+      #   - ip link add bond0 type bond mode 802.3ad
+      #   - ip link set addr 00:c1:ab:01:01:21 dev bond0
+      #   - ip link add link bond0 name bond0.201 type vlan id 201
+      #   - ip link set eth1 down
+      #   - ip link set eth2 down
+      #   - ip link set eth1 master bond0
+      #   - ip link set eth2 master bond0
+      #   - ip link set eth1 up
+      #   - ip link set eth2 up
+      #   - ip link set bond0 up
+      #   - ip addr add 10.20.1.1/24 dev bond0.201
+      #   - ip route add 10.20.2.0/24 via 10.20.1.254 dev bond0.201
+      #   - iperf3 -s -p 5201 -D
+      #   - iperf3 -s -p 5202 -D
+      #   - /scripts/iperf3clientloop.sh --background -c 10.20.2.1 --udp --bitrate 100K --parallel 10 --time 86400
+
     client2:
       kind: linux
+      mgmt-ipv4: 172.80.80.32
       image: ghcr.io/hellt/network-multitool
+      binds:
+        - scripts:/scripts:ro
+      # exec:
+      #   - ip link add bond0 type bond mode 802.3ad
+      #   - ip link set addr 00:c1:ab:01:01:21 dev bond0
+      #   - ip link add link bond0 name bond0.201 type vlan id 201
+      #   - ip link set eth1 down
+      #   - ip link set eth2 down
+      #   - ip link set eth1 master bond0
+      #   - ip link set eth2 master bond0
+      #   - ip link set eth1 up
+      #   - ip link set eth2 up
+      #   - ip link set bond0 up
+      #   - ip addr add 10.20.1.1/24 dev bond0.201
+      #   - ip route add 10.20.2.0/24 via 10.20.1.254 dev bond0.201
+      #   - iperf3 -s -p 5201 -D
+      #   - iperf3 -s -p 5202 -D
+      #   - /scripts/iperf3clientloop.sh --background -c 10.20.2.1 --udp --bitrate 100K --parallel 10 --time 86400
+
     client3:
       kind: linux
+      mgmt-ipv4: 172.80.80.33
       image: ghcr.io/hellt/network-multitool
+      binds:
+        - scripts:/scripts:ro
+      # exec:
+      #   - ip link add bond0 type bond mode 802.3ad
+      #   - ip link set addr 00:c1:ab:01:01:21 dev bond0
+      #   - ip link add link bond0 name bond0.201 type vlan id 201
+      #   - ip link set eth1 down
+      #   - ip link set eth2 down
+      #   - ip link set eth1 master bond0
+      #   - ip link set eth2 master bond0
+      #   - ip link set eth1 up
+      #   - ip link set eth2 up
+      #   - ip link set bond0 up
+      #   - ip addr add 10.20.1.1/24 dev bond0.201
+      #   - ip route add 10.20.2.0/24 via 10.20.1.254 dev bond0.201
+      #   - iperf3 -s -p 5201 -D
+      #   - iperf3 -s -p 5202 -D
+      #   - /scripts/iperf3clientloop.sh --background -c 10.20.2.1 --udp --bitrate 100K --parallel 10 --time 86400
+
     client4:
       kind: linux
+      mgmt-ipv4: 172.80.80.34
       image: ghcr.io/hellt/network-multitool
+      binds:
+        - scripts:/scripts:ro
+      # exec:
+      #   - ip link add bond0 type bond mode 802.3ad
+      #   - ip link set addr 00:c1:ab:01:01:21 dev bond0
+      #   - ip link add link bond0 name bond0.201 type vlan id 201
+      #   - ip link set eth1 down
+      #   - ip link set eth2 down
+      #   - ip link set eth1 master bond0
+      #   - ip link set eth2 master bond0
+      #   - ip link set eth1 up
+      #   - ip link set eth2 up
+      #   - ip link set bond0 up
+      #   - ip addr add 10.20.1.1/24 dev bond0.201
+      #   - ip route add 10.20.2.0/24 via 10.20.1.254 dev bond0.201
+      #   - iperf3 -s -p 5201 -D
+      #   - iperf3 -s -p 5202 -D
+      #   - /scripts/iperf3clientloop.sh --background -c 10.20.2.1 --udp --bitrate 100K --parallel 10 --time 86400
+
+    ### TELEMETRY STACK ###
+    telegraf:
+      kind: linux
+      image: telegraf:1.32.3
+      mgmt-ipv4: 172.80.80.41
+      binds:
+        - configs/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      cmd: telegraf
+      ports:
+        - 9273:9273
+
+    prometheus:
+      kind: linux
+      image: quay.io/prometheus/prometheus:v2.54.1
+      mgmt-ipv4: 172.80.80.42
+      binds:
+        - configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      cmd: --config.file=/etc/prometheus/prometheus.yml
+      ports:
+        - 9090:9090
+
+    grafana:
+      user: 0:0
+      kind: linux
+      image: grafana/grafana:11.2.0
+      mgmt-ipv4: 172.80.80.43
+      binds:
+        - configs/grafana:/var/lib/grafana
+        - configs/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+        - configs/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      ports:
+        - 3000:3000
+      env:
+        GF_INSTALL_PLUGINS: "andrewbmchugh-flow-panel, volkovlabs-variable-panel"
+        GF_ORG_ROLE: "Admin"
+        GF_ORG_NAME: "Main Org"
+        GF_AUTH_ANONYMOUS_ENABLED: "true"
+        GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+        GF_AUTH_ANONYMOUS: "true"
+        GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+
+
+    ### LOGGING STACK ###
+    promtail:
+      kind: linux
+      image: grafana/promtail:3.2.0
+      mgmt-ipv4: 172.80.80.44
+      binds:
+        - configs/promtail:/etc/promtail
+      cmd: --config.file=/etc/promtail/promtail-config.yml
+      ports:
+        - 9080:9080
+
+    loki:
+      kind: linux
+      image: grafana/loki:3.2.0
+      mgmt-ipv4: 172.80.80.45
+      binds:
+        - configs/loki:/etc/loki
+      cmd: --config.file=/etc/loki/loki-config.yml
+      ports:
+        - 3100:3100
+
+    kafka:
+      kind: linux
+      image: apache/kafka:3.9.0
+      mgmt-ipv4: 172.80.80.46
+      env:
+        KAFKA_NODE_ID: 1
+        KAFKA_PROCESS_ROLES: "broker,controller"
+        KAFKA_CONTROLLER_QUORUM_VOTERS: "1@localhost:9093"
+        KAFKA_LISTENERS: "PLAINTEXT://172.80.80.46:9092,CONTROLLER://localhost:9093"
+        KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://172.80.80.46:9092"
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+        KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+        KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+        KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ports:
+        - 9092:9092
+
+
+    syslog:
+      kind: linux
+      image: linuxserver/syslog-ng:4.7.1
+      mgmt-ipv4: 172.80.80.47
+      binds:
+        - configs/syslog/:/config
+        - configs/syslog/log:/var/log
+      env:
+        PUID: 0
+        PGID: 0
+
+
+
   links:
   - endpoints: ['leaf1:ethernet-1/1', 'client1:eth1']
   - endpoints: ['leaf2:ethernet-1/1', 'client1:eth2']
