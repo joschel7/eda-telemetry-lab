@@ -1,0 +1,201 @@
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+metadata:
+  name: apps
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.system.app-management.application
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+metadata:
+  name: bgproutes
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.network-instance.protocols.bgp.statistics
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+metadata:
+  name: cpu
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.platform.control.cpu.total
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+
+metadata:
+  name: defaultbgppeers
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: >-
+        .namespace.resources.cr-status.protocols_eda_nokia_com.v1alpha1.defaultbgpgroup.status
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+
+metadata:
+  name: healthscore
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: >-
+        .namespace.resources.cr-status.routing_eda_nokia_com.v1alpha1.defaultrouter.status
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+
+metadata:
+  name: interface
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - mappings:
+        - destination: '1'
+          source: up
+        - destination: '0'
+          source: down
+      metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.interface
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+
+metadata:
+  name: interface-rate
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.interface.traffic-rate
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+
+metadata:
+  name: memory
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.platform.control.memory
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+metadata:
+  name: network-instance
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - mappings:
+        - destination: '1'
+          source: up
+        - destination: '0'
+          source: down
+      metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.network-instance
+
+---
+apiVersion: prom.eda.nokia.com/v1alpha1
+kind: Export
+metadata:
+  name: srl-routes
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  exports:
+    - metricName:
+        regex: namespace_(.+)
+        replacement: $1
+      path: .namespace.node.srl.network-instance.route-table.ipv4-unicast.statistics
+
+---
+apiVersion: kafka.eda.nokia.com/v1alpha1
+kind: Producer
+metadata:
+  name: kafka
+  labels: {}
+  namespace: eda-system
+  annotations: {}
+spec:
+  brokers: 10.58.2.46:9092
+  compression-codec: none
+  exports:
+    - mode: on-change
+      path: .namespace.alarms.alarm
+      period: 10s
+      topic: alarms
+    - mode: on-change
+      path: .namespace.resources.cr.core_eda_nokia_com.v1.deviation
+      period: 10s
+      topic: deviations
+  max-retry: 3
+  required-acks: no-response
+  sasl:
+    mechanism: plain
+    password: ''
+    token-url: ''
+    user: ''
+  sync-producer: false
+  timeout: 10s
+  tls:
+    skip-verify: false
+    ca-file: ''
+    cert-file: ''
+    key-file: ''
+  flush-frequency: ''

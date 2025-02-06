@@ -1,17 +1,13 @@
-# Copyright 2020 Nokia
-# Licensed under the BSD 3-Clause License.
-# SPDX-License-Identifier: BSD-3-Clause
-
 global:
   scrape_interval: 5s
 
-# metrics_path defaults to '/metrics'
-# scheme defaults to 'http'.
 scrape_configs:
 
   - job_name: 'eda-exporter'
-    scrape_interval: 1s
+    scrape_interval: 5s
     static_configs:
-      - targets: ['100.82.85.164:8080']
-    metrics_path: /metrics
-    scheme: http
+      - targets: ['100.82.85.163']
+    metrics_path: /core/httpproxy/v1/prometheus-exporter/metrics
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true

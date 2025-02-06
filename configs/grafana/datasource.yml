@@ -4,7 +4,7 @@ apiVersion: 1
 datasources:
   - name: Prometheus
     type: prometheus
-    url: http://172.80.80.42:9090
+    url: http://10.58.2.42:9090
   - name: Loki
     type: loki
-    url: http://172.80.80.45:3100
+    url: http://10.58.2.45:3100

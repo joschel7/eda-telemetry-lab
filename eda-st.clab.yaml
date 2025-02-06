@@ -1,37 +1,47 @@
 name: eda-st
-prefix: ""
+#prefix: ""
 mgmt:
   network: eda-st
-  ipv4-subnet: 172.80.80.0/24
+  ipv4-subnet: 10.58.2.0/24
+
 topology:
+  kinds:
+    # nokia_sros:
+    #   image: registry.srlinux.dev/pub/vr-sros:24.3.R1
+    #   type: sr-1s
+    #   license: /opt/srexperts/license-sros24.txt
+    nokia_srlinux:
+      image: ghcr.io/nokia/srlinux:24.10.1
+      type: ixrd2l
+
   nodes:
     leaf1:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.11
-      image: ghcr.io/nokia/srlinux:24.10.1
+      mgmt-ipv4: 10.58.2.11
+
     leaf2:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.12
-      image: ghcr.io/nokia/srlinux:24.10.1
+      mgmt-ipv4: 10.58.2.12
+
     leaf3:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.13
-      image: ghcr.io/nokia/srlinux:24.10.1
+      mgmt-ipv4: 10.58.2.13
+
     leaf4:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.14
-      image: ghcr.io/nokia/srlinux:24.10.1
+      mgmt-ipv4: 10.58.2.14
+
     spine1:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.21
-      image: ghcr.io/nokia/srlinux:24.10.1
+      mgmt-ipv4: 10.58.2.21
+
     spine2:
       kind: nokia_srlinux
-      mgmt-ipv4: 172.80.80.22
-      image: ghcr.io/nokia/srlinux:24.10.1
+      mgmt-ipv4: 10.58.2.22
+
     client1:
       kind: linux
-      mgmt-ipv4: 172.80.80.31
+      mgmt-ipv4: 10.58.2.31
       image: ghcr.io/hellt/network-multitool
       binds:
         - scripts:/scripts:ro
@@ -54,7 +64,7 @@ topology:
 
     client2:
       kind: linux
-      mgmt-ipv4: 172.80.80.32
+      mgmt-ipv4: 10.58.2.32
       image: ghcr.io/hellt/network-multitool
       binds:
         - scripts:/scripts:ro
@@ -77,7 +87,7 @@ topology:
 
     client3:
       kind: linux
-      mgmt-ipv4: 172.80.80.33
+      mgmt-ipv4: 10.58.2.33
       image: ghcr.io/hellt/network-multitool
       binds:
         - scripts:/scripts:ro
@@ -100,7 +110,7 @@ topology:
 
     client4:
       kind: linux
-      mgmt-ipv4: 172.80.80.34
+      mgmt-ipv4: 10.58.2.34
       image: ghcr.io/hellt/network-multitool
       binds:
         - scripts:/scripts:ro
@@ -125,7 +135,7 @@ topology:
     telegraf:
       kind: linux
       image: telegraf:1.32.3
-      mgmt-ipv4: 172.80.80.41
+      mgmt-ipv4: 10.58.2.41
       binds:
         - configs/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       cmd: telegraf
@@ -135,7 +145,7 @@ topology:
     prometheus:
       kind: linux
       image: quay.io/prometheus/prometheus:v2.54.1
-      mgmt-ipv4: 172.80.80.42
+      mgmt-ipv4: 10.58.2.42
       binds:
         - configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       cmd: --config.file=/etc/prometheus/prometheus.yml
@@ -146,7 +156,7 @@ topology:
       user: 0:0
       kind: linux
       image: grafana/grafana:11.2.0
-      mgmt-ipv4: 172.80.80.43
+      mgmt-ipv4: 10.58.2.43
       binds:
         - configs/grafana:/var/lib/grafana
         - configs/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
@@ -167,7 +177,7 @@ topology:
     promtail:
       kind: linux
       image: grafana/promtail:3.2.0
-      mgmt-ipv4: 172.80.80.44
+      mgmt-ipv4: 10.58.2.44
       binds:
         - configs/promtail:/etc/promtail
       cmd: --config.file=/etc/promtail/promtail-config.yml
@@ -177,7 +187,7 @@ topology:
     loki:
       kind: linux
       image: grafana/loki:3.2.0
-      mgmt-ipv4: 172.80.80.45
+      mgmt-ipv4: 10.58.2.45
       binds:
         - configs/loki:/etc/loki
       cmd: --config.file=/etc/loki/loki-config.yml
@@ -187,13 +197,13 @@ topology:
     kafka:
       kind: linux
       image: apache/kafka:3.9.0
-      mgmt-ipv4: 172.80.80.46
+      mgmt-ipv4: 10.58.2.46
       env:
         KAFKA_NODE_ID: 1
         KAFKA_PROCESS_ROLES: "broker,controller"
         KAFKA_CONTROLLER_QUORUM_VOTERS: "1@localhost:9093"
-        KAFKA_LISTENERS: "PLAINTEXT://172.80.80.46:9092,CONTROLLER://localhost:9093"
-        KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://172.80.80.46:9092"
+        KAFKA_LISTENERS: "PLAINTEXT://10.58.2.46:9092,CONTROLLER://localhost:9093"
+        KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://10.58.2.46:9092"
         KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
         KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
         KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
@@ -205,7 +215,7 @@ topology:
     syslog:
       kind: linux
       image: linuxserver/syslog-ng:4.7.1
-      mgmt-ipv4: 172.80.80.47
+      mgmt-ipv4: 10.58.2.47
       binds:
         - configs/syslog/:/config
         - configs/syslog/log:/var/log
