@@ -1,0 +1,36 @@
+apiVersion: config.eda.nokia.com/v1alpha1
+kind: Configlet
+metadata:
+  name: syslog-config
+  namespace: clab-eda-st
+spec:
+  configs:
+  - config: |-
+      {
+          "logging": {
+              "network-instance": "mgmt",
+              "remote-server": [
+                  {
+                      "format": "RSYSLOG_TraditionalForwardFormat",
+                      "host": "10.58.2.47",
+                      "transport": "udp",
+                      "remote-port": 5514,
+                      "facility": [
+                          {
+                              "facility-name": "local6",
+                              "priority": {
+                                  "match-above": "informational"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          }
+      }
+    operation: Update
+    path: .system
+  endpointSelector:
+  - eda.nokia.com/role=leaf
+  - eda.nokia.com/role=spine
+  operatingSystem: srl
+  priority: 0

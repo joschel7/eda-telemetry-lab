@@ -1,0 +1,15 @@
+apiVersion: core.eda.nokia.com/v1
+kind: NodeUser
+metadata:
+  name: admin
+  namespace: clab-eda-st
+spec:
+  username: admin
+  password: NokiaSrl1!
+  groupBindings:
+    - groups:
+        - sudo
+      nodeSelector:
+        - containerlab=managed
+  sshPublicKeys:
+    []

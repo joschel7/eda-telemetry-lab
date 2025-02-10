@@ -1,0 +1,10 @@
+apiVersion: artifacts.eda.nokia.com/v1
+kind: Artifact
+metadata:
+  name: clab-srlinux-24.10.1
+  namespace: eda-system
+spec:
+  filePath: srlinux-24.10.1.zip
+  remoteFileUrl:
+    fileUrl: "https://github.com/nokia/srlinux-yang-models/releases/download/v24.10.1/srlinux-24.10.1-492.zip"
+  repo: clab-schemaprofiles
