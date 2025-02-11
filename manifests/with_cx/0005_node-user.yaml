@@ -5,11 +5,11 @@ metadata:
   namespace: clab-eda-st
 spec:
   username: admin
-  password: NokiaSrl1!
+  password: eda124!
   groupBindings:
     - groups:
         - sudo
       nodeSelector:
-        - containerlab=managed
+        - ''
   sshPublicKeys:
     []
