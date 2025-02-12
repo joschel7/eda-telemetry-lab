@@ -40,7 +40,7 @@ topology:
       mgmt-ipv4: 10.58.2.31
       image: ghcr.io/hellt/network-multitool
       exec:
-        - ip link add bond0 type bond mode 802.3ad
+        - ip link add bond0 type bond mode 802.3ad xmit_hash_policy layer3+4
         - ip link set addr 00:c1:ab:01:01:01 dev bond0
         - ip link set eth1 down
         - ip link set eth2 down
@@ -63,7 +63,7 @@ topology:
       mgmt-ipv4: 10.58.2.32
       image: ghcr.io/hellt/network-multitool
       exec:
-        - ip link add bond0 type bond mode 802.3ad
+        - ip link add bond0 type bond mode 802.3ad xmit_hash_policy layer3+4
         - ip link set addr 00:c1:ab:01:01:02 dev bond0
         - ip link set eth1 down
         - ip link set eth2 down
@@ -86,7 +86,7 @@ topology:
       mgmt-ipv4: 10.58.2.33
       image: ghcr.io/hellt/network-multitool
       exec:
-        - ip link add bond0 type bond mode 802.3ad
+        - ip link add bond0 type bond mode 802.3ad xmit_hash_policy layer3+4
         - ip link set addr 00:c1:ab:01:01:03 dev bond0
         - ip link set eth1 down
         - ip link set eth2 down
@@ -108,7 +108,7 @@ topology:
       mgmt-ipv4: 10.58.2.34
       image: ghcr.io/hellt/network-multitool
       exec:
-        - ip link add bond0 type bond mode 802.3ad
+        - ip link add bond0 type bond mode 802.3ad xmit_hash_policy layer3+4
         - ip link set addr 00:c1:ab:01:01:04 dev bond0
         - ip link set eth1 down
         - ip link set eth2 down

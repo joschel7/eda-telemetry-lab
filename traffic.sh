@@ -31,8 +31,8 @@ DURATION=${DURATION:-10000}    # Test duration in seconds
 INTERVAL=1                     # Reporting interval (seconds)
 PORT1=5201                   # Port for first set of tests (TCP/UDP)
 PORT2=5202                   # Port for second set of tests (TCP/UDP)
-PARALLEL=5                   # Number of parallel streams
-BANDWIDTH="100K"             # Bandwidth parameter (for UDP tests)
+PARALLEL=10                   # Number of parallel streams
+BANDWIDTH="150K"             # Bandwidth parameter (for UDP tests)
 MSS=1400                     # Maximum segment size
 
 # Define endpoints based on your design:
