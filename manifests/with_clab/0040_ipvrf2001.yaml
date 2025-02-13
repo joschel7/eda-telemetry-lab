@@ -53,7 +53,7 @@ spec:
         dynamic: true
         evpn: false
         static: false
-      ipMTU: 9394
+      ipMTU: 1500
       ipAddresses:
       - ipv4Address:
           ipPrefix: 10.20.1.254/24
@@ -76,7 +76,7 @@ spec:
         dynamic: true
         evpn: false
         static: false
-      ipMTU: 9394
+      ipMTU: 1500
       ipAddresses:
       - ipv4Address:
           ipPrefix: 10.20.2.254/24
