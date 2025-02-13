@@ -66,7 +66,7 @@ There are two variants for deploying the lab.
    - Run:
         ```
         clab-connector integrate \
-        --topology-data /clab-eda-st/topology-data.json \
+        --topology-data clab-eda-st/topology-data.json \
         --eda-url https://<eda-ip>
         ```
       > [!TIP]
