@@ -46,7 +46,9 @@ There are two variants for deploying the lab.
 
 ### Variant 1: Containerlab (clab)
 > [!IMPORTANT]
-> Requires a EDA hardware license.
+> **EDA Installation Mode:** This lab **requires EDA to be installed with `Simulate=False`**. Ensure that your EDA deployment is configured accordingly.
+>
+> **Hardware License:** A valid **`hardware license` for EDA version 24.12.1** is mandatory for using this connector tool.
 
 1. **Initialize the Lab Configuration:**
    - Run the provided `init.sh` script. When prompted, enter your EDA IP address. This will update files like `configs/prometheus/prometheus.yml`.
