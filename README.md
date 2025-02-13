@@ -8,7 +8,7 @@
 The **EDA Telemetry Lab** demonstrates how to leverage SR Linux’s full 100% YANG telemetry support integrated with [EDA (Event Driven Automation)](https://docs.eda.dev/). In this lab, SR Linux nodes are dynamically configured via EDA and integrated into a modern telemetry and logging stack that includes Prometheus, Grafana, Promtail, Loki, and Kafka exporters for alarms and deviations.
 
 <p align="center">
-  <img src="./eda-telemetry-lab.drawio.svg" alt="Drawio Example">
+  <img src="./docs/dashboard.png" alt="Drawio Example">
 </p>
 
 
