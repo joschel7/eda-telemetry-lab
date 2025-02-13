@@ -4,6 +4,7 @@ metadata:
   name: init-base
   namespace: clab-eda-st
 spec:
+  commitSave: true
   mgmt:
     ipv4DHCP: true
     ipv6DHCP: true
