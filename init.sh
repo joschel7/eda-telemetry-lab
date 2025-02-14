@@ -9,8 +9,8 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
   exit 1
 fi
 
-# Prompt the user for the EDA IP/FQDN
-read -p "Enter EDA IP/FQDN: " EDA_IP
+# Prompt the user for the EDA IP/FQDN with usage hint
+read -p "Enter EDA IP/FQDN (e.g., eda.nokia.com:9443 if using port-forward, or eda.nokia.com if using 443): " EDA_IP
 
 # Ensure input is not empty
 if [[ -z "$EDA_IP" ]]; then

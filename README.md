@@ -43,7 +43,10 @@ There are two variants for deploying the lab.
 1. **Initialize the Lab Configuration:**
    - Run the provided `init.sh` script. When prompted, enter your EDA IP address. This will update files like `configs/prometheus/prometheus.yml`.
 
-2. **Install Required Tools:**
+2. **Deploy the containerlab:**
+   - Run `containerlab deploy -t eda-st.clab.yaml` to deploy the lab.
+
+3. **Install Required Tools:**
    - Execute the following commands:
         ```
         curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -51,7 +54,7 @@ There are two variants for deploying the lab.
         ```
         uv tool install git+https://github.com/eda-labs/clab-connector.git
         ```
-3. **Install the EDA Apps (Prometheus and Kafka):**
+4. **Install the EDA Apps (Prometheus and Kafka):**
    - Run:
         ```
         kubectl apply -f manifests/with_clab/0000_apps.yaml
@@ -59,7 +62,7 @@ There are two variants for deploying the lab.
       > [!TIP]
       > Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
 
-4. **Integrate Containerlab with EDA:**
+5. **Integrate Containerlab with EDA:**
    - Run:
         ```
         clab-connector integrate \
@@ -69,12 +72,12 @@ There are two variants for deploying the lab.
       > [!TIP]
       > Check [Clab Connetor](https://github.com/eda-labs/clab-connector) for more details on the clab-connector options.
 
-5. **Deploy the Lab:**
+6. **Deploy the Manifests:**
    - Apply the manifests:
         ```
         kubectl apply -f manifests/with_clab
         ```
-6. **Enjoy Your Lab!**
+7. **Enjoy Your Lab!**
 
 ### Variant 2: CX (Simulation Platform)
 > [!NOTE]
@@ -83,12 +86,15 @@ There are two variants for deploying the lab.
 1. **Initialize the Lab Configuration:**
    - Run the provided `init.sh` script to update your configuration files with the EDA IP address.
 
-2. **Bootstrap the Namespace in EDA:**
+2. **Deploy the containerlab:**
+   - Run `containerlab deploy -t eda-st-cx.clab.yaml` to deploy the lab.
+
+3. **Bootstrap the Namespace in EDA:**
    - Execute:
         ```
         kubectl exec -n eda-system $(kubectl get pods -n eda-system | grep eda-toolbox | awk '{print $1}') -- edactl namespace bootstrap clab-eda-st
         ```
-3. **Install the EDA Apps (Prometheus and Kafka):**
+4. **Install the EDA Apps (Prometheus and Kafka):**
    - Run:
         ```
         kubectl apply -f manifests/with_cx/0000_apps.yaml
@@ -96,12 +102,12 @@ There are two variants for deploying the lab.
       > [!TIP]
       > Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
 
-4. **Deploy the Lab:**
+5. **Deploy the Lab:**
    - Apply the manifests:
         ```
         kubectl apply -f manifests/with_cx
         ```
-5. **Enjoy Your Lab!**
+6. **Enjoy Your Lab!**
 
 ---
 

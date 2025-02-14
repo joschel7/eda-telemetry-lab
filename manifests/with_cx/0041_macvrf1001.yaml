@@ -2,7 +2,7 @@ apiVersion: services.eda.nokia.com/v1alpha1
 kind: VirtualNetwork
 metadata:
   name: macvrf1001
-  namespace: eda
+  namespace: clab-eda-st
 spec:
   bridgeDomains:
   - name: macvrf1001
