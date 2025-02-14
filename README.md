@@ -5,30 +5,20 @@
 [discord-url]: https://discord.gg/7nJc5hh8
 
 
-The **EDA Telemetry Lab** demonstrates how to leverage SR Linux’s full 100% YANG telemetry support integrated with [EDA (Event Driven Automation)](https://docs.eda.dev/). In this lab, SR Linux nodes are dynamically configured via EDA and integrated into a modern telemetry and logging stack that includes Prometheus, Grafana, Promtail, Loki, and Kafka exporters for alarms and deviations.
+The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry support integrated with [EDA (Event Driven Automation)](https://docs.eda.dev/). In this lab, [Nokia SR Linux](https://learn.srlinux.dev/) nodes are dynamically configured via EDA and integrated into a modern telemetry and logging stack that includes Prometheus, Grafana, Promtail, Loki, and Kafka exporters for alarms and deviations.
 
 <p align="center">
   <img src="./docs/dashboard.png" alt="Drawio Example">
 </p>
 
 
-> **Key Benefits:**
-> - **Automated Configuration:** No manual startup configs or gnmic setup—EDA handles it all.
-> - **Comprehensive Telemetry:** SR Linux streams full YANG telemetry data via EDA’s Prometheus exporter.
-> - **Enhanced Alarms & Deviations:** EDA’s Kafka exporter forwards alarms and deviations for proactive monitoring.
-> - **Flexible Deployment:** Choose between a Containerlab (clab) topology or a simulation-based CX deployment.
-
----
-
-## Goals
-
 - **EDA-Driven Configuration:** Automate SR Linux configuration and telemetry subscriptions with EDA.
 - **Modern Telemetry Stack:** Export telemetry data using EDA’s Prometheus exporter and monitor alarms/deviations via the Kafka exporter.
 - **Enhanced Logging:** Capture and aggregate system logs using Promtail and Loki.
 - **Versatile Deployment Options:** Deploy with either Containerlab (clab) for live traffic or CX (Simulation Platform) for license-flexible testing.
-- **Live Traffic Insights:** Generate and control iperf3 traffic to see dynamic network metrics in action.
+- **Traffic:** Generate and control iperf3 traffic to see dynamic network metrics in action.
 
----
+
 
 ## Lab Components
 
@@ -38,7 +28,7 @@ The **EDA Telemetry Lab** demonstrates how to leverage SR Linux’s full 100% YA
 - **Alarms:** Data is collected by Promtail and aggregated in Loki, with logs viewable in Grafana.
 - **Traffic Generation:** Use iperf3 tests and provided scripts to simulate live traffic across the network.
 
----
+
 
 ## Deployment Variants
 
@@ -48,7 +38,7 @@ There are two variants for deploying the lab.
 > [!IMPORTANT]
 > **EDA Installation Mode:** This lab **requires EDA to be installed with `Simulate=False`**. Ensure that your EDA deployment is configured accordingly.
 >
-> **Hardware License:** A valid **`hardware license` for EDA version 24.12.1** is mandatory for using this connector tool.
+> **Hardware License:** A valid **`hardware license` for EDA version 24.12.1** is mandatory for using this lab.
 
 1. **Initialize the Lab Configuration:**
    - Run the provided `init.sh` script. When prompted, enter your EDA IP address. This will update files like `configs/prometheus/prometheus.yml`.
@@ -119,11 +109,11 @@ There are two variants for deploying the lab.
 ## Accessing Network Elements in clab
 
 - **SR Linux Nodes:**
-  Access these devices via SSH using the management IP addresses or hostnames (e.g., ssh admin@leaf1 or ssh admin@spine1).
+  Access these devices via SSH using the management IP addresses or hostnames (e.g., `ssh admin@leaf1` or `ssh admin@spine1`).
 
 - **Linux Clients:**
   Although SSH is not enabled by default, you can access them with:
-     docker exec -it client1 bash
+     `docker exec -it client1 bash`
 
 ## Accessing Network Elements in cx (Simulation Platform)
 
@@ -158,7 +148,6 @@ There are two variants for deploying the lab.
 - **Prometheus UI:**
   Check out real-time graphs at http://prometheus:9090/graph.
 
----
 
 ## Traffic Generation & Control
 
@@ -173,11 +162,11 @@ The lab includes a traffic script (named **traffic.sh**) that launches bidirecti
   - From client3 (`clab-eda-st-client3`) targeting client2’s IP `10.10.10.2` on port **5201**
   - From client3 targeting client2’s VLAN interface `10.20.2.2` on port **5202**
 
-**Default Test Settings (modifiable via environment variables):**
+**Default Test Settings:**
 - **Duration:** 10000 seconds
 - **Report Interval:** 1 second
 - **Parallel Streams:** 10
-- **Bandwidth:** 150K (applies only to UDP tests; ignored for TCP)
+- **Bandwidth:** 150K
 - **MSS:** 1400
 
 **Usage Examples:**
@@ -197,8 +186,6 @@ The lab includes a traffic script (named **traffic.sh**) that launches bidirecti
         ./traffic.sh stop all
 
 
----
-
 ## Additional Components
 
 ### Containerlab File
@@ -210,7 +197,19 @@ The provided containerlab file defines the lab topology. For the Containerlab (c
 
 For the CX variant, the topology includes only the telemetry and logging containers.
 
----
+### EDA Configuration
+The lab includes several manifest files that define the configuration of EDA apps and the network fabric. For example:
+
+- **Apps Installation (0000_apps.yaml):** Installs the Prometheus exporter (prom-exporter v2.0.0) and the Kafka exporter (kafka-exporter v2.0.1).
+- **Edge Interfaces (0009_edge-interfaces.yaml / 0010_edge-interfaces.yaml):** Configure LAG, LLDP, and edge interfaces on SR Linux nodes.
+- **TopoLinks (0010_topolinks.yaml / 0009_topolinks.yaml):** Define physical and logical links between network elements.
+- **Exporters (0020_exporters.yaml / 0025_exporters.yaml):** Export telemetry metrics (CPU, memory, interface status, routes, etc.) for Prometheus.
+- **Syslog (0021_syslog.yaml / 0026_syslog.yaml):** Set up syslog forwarding to a centralized server.
+- **Fabric Topology (0030_fabric.yaml):** Establish the Clos fabric connectivity.
+- **Virtual Networks (0040_ipvrf2001.yaml and 0041_macvrf1001.yaml):** Configure VRFs and VLANs for traffic segmentation.
+
+For the CX variant, similar manifest files are provided in the manifests/with_cx directory. These components enable automated deployment and comprehensive monitoring of the lab environment.
+
 
 ## Conclusion
 
