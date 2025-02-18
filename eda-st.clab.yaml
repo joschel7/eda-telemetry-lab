@@ -209,19 +209,6 @@ topology:
         - 9092:9092
 
 
-    syslog:
-      kind: linux
-      image: linuxserver/syslog-ng:4.7.1
-      mgmt-ipv4: 10.58.2.47
-      binds:
-        - configs/syslog/:/config
-        - configs/syslog/log:/var/log
-      env:
-        PUID: 0
-        PGID: 0
-
-
-
   links:
   - endpoints: ['leaf1:ethernet-1/1', 'client1:eth1']
   - endpoints: ['leaf2:ethernet-1/1', 'client1:eth2']

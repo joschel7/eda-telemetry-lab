@@ -220,7 +220,7 @@ The lab includes a traffic script (named **traffic.sh**) that launches bidirecti
 The provided containerlab file defines the lab topology. For the Containerlab (clab) variant, it includes:
 - Nokia SR Linux nodes (leaf and spine switches)
 - Linux clients configured with bonding, VLANs, and iperf3 servers/clients
-- Telemetry and logging containers (Alloy, Prometheus, Grafana, Promtail, Loki, Kafka, syslog)
+- Telemetry and logging containers (Alloy, Prometheus, Grafana, Promtail, Loki, Kafka)
 
 For the CX variant, the topology includes only the telemetry and logging containers.
 

@@ -11,10 +11,9 @@ spec:
               "network-instance": "mgmt",
               "remote-server": [
                   {
-                      "format": "RSYSLOG_TraditionalForwardFormat",
-                      "host": "10.58.2.47",
+                      "host": "10.58.2.44",
                       "transport": "udp",
-                      "remote-port": 5514,
+                      "remote-port": 1514,
                       "facility": [
                           {
                               "facility-name": "local6",
