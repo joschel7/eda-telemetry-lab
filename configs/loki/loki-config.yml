@@ -34,9 +34,6 @@ schema_config:
         prefix: index_
         period: 24h
 
-ruler:
-  alertmanager_url: http://10.58.2.45:9093
-
 limits_config:
   increment_duplicate_timestamp: true
 
