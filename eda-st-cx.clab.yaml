@@ -90,15 +90,3 @@ topology:
       ports:
         - 9092:9092
 
-    syslog:
-      kind: linux
-      image: linuxserver/syslog-ng:4.7.1
-      mgmt-ipv4: 10.58.2.47
-      binds:
-        - configs/syslog/:/config
-        - configs/syslog/log:/var/log
-      env:
-        PUID: 0
-        PGID: 0
-
-
