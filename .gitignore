@@ -7,12 +7,4 @@ configs/grafana/*
 !configs/grafana/dashboards/
 !configs/grafana/dashboards/st.json
 
-configs/syslog/log/*
-configs/syslog/syslog-ng.ctl
-configs/syslog/syslog-ng.persist
-configs/syslog/syslog-ng.pid
-
-configs/syslog/log/*
-!configs/syslog/log/.gitkeep
-
 .vscode/
