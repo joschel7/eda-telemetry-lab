@@ -65,7 +65,7 @@ There are two variants for deploying the lab.
     Run:
 
     ```
-    kubectl apply -f manifests/with_clab/0000_apps.yaml
+    kubectl apply -f manifests/0000_apps.yaml
     ```
 
     **TIP:** Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
@@ -74,20 +74,20 @@ There are two variants for deploying the lab.
 
     Run:
 
-    ```
+    ```bash
     clab-connector integrate \
     --topology-data clab-eda-st/topology-data.json \
     --eda-url https://$(cat .eda_api_address)
     ```
 
-    **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) for more details on the clab-connector options.
+    **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) docs for more details on the clab-connector options.
 
 6. **Deploy the Manifests:**
 
     Apply the manifests:
 
     ```
-    kubectl apply -f manifests/with_clab
+    kubectl apply -f manifests/clab
     ```
 
 7. **Enjoy Your Lab!**
@@ -138,11 +138,10 @@ There are two variants for deploying the lab.
 ## Accessing Network Elements in clab
 
 - **SR Linux Nodes:**
-  Access these devices via SSH using the management IP addresses or hostnames (e.g., `ssh admin@leaf1` or `ssh admin@spine1`).
+  Access these devices via SSH using the management IP addresses or hostnames (e.g., `ssh clab-eda-st-leaf2`).
 
 - **Linux Clients:**
-  Although SSH is not enabled by default, you can access them with:
-     `docker exec -it client1 bash`
+  Access client-emulating container via SSH: e.g. `ssh user@clab-eda-st-client3` (password: `multit00l`).
 
 ## Accessing Network Elements in cx (Simulation Platform)
 
