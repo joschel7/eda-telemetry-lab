@@ -49,7 +49,7 @@ There are two variants for deploying the lab.
     You should see `Started` in the output.
 2. **Initialize the Lab Configuration:**
 
-    Run the provided `init.sh` script. When prompted, enter your EDA IP address. This will update files like `configs/prometheus/prometheus.yml`.
+    Run the provided `init.sh` which retrieves the EDA IP and sets it in the `configs/prometheus/prometheus.yml` files.
 
 3. **Deploy the containerlab:**
 
