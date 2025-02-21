@@ -1,5 +1,19 @@
 #!/bin/bash
 
+function install-uv {
+    # error if uv is not in the path
+    if ! command -v uv &> /dev/null;
+    then
+        echo "Installing uv";
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+    fi
+
+}
+
+# install uv and clab-connector
+install-uv
+uv tool install git+https://github.com/eda-labs/clab-connector.git
+
 # Define the configuration file path
 PROM_CONFIG_FILE="configs/prometheus/prometheus.yml"
 
@@ -10,11 +24,8 @@ if [[ ! -f "$PROM_CONFIG_FILE" ]]; then
 fi
 
 # Fetch EDA ext domain name from engine config
-if command -v uv &> /dev/null; then
-    EDA_IP=$(uv run ./scripts/get_eda_ip.py)
-else
-    EDA_IP=$(python ./scripts/get_eda_ip.py)
-fi
+EDA_IP=$(uv run ./scripts/get_eda_ip.py)
+
 
 # Ensure input is not empty
 if [[ -z "$EDA_IP" ]]; then
@@ -28,3 +39,8 @@ fi
 sed -i.bak -E "s/(^[[:space:]]*- targets: \[')[^']+('].*)/\1${EDA_IP}\2/" "$PROM_CONFIG_FILE"
 
 echo "Updated target to '$EDA_IP' in $PROM_CONFIG_FILE"
+
+# save EDA API address to a file
+EDA_EXT_DOMAIN_NAME=$(kubectl -n eda-system get engineconfigs/engine-config -o jsonpath={.spec.cluster.external.domainName})
+EDA_HTTPS_PORT=$(kubectl -n eda-system get engineconfigs/engine-config -o jsonpath={.spec.cluster.external.httpsPort})
+echo "$EDA_EXT_DOMAIN_NAME:$EDA_HTTPS_PORT" > .eda_api_address

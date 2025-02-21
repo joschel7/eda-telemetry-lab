@@ -10,3 +10,4 @@ configs/grafana/*
 !configs/grafana/dashboards/
 !configs/grafana/dashboards/st.json
 prometheus.yml.bak
+.eda_api_address

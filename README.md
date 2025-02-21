@@ -47,27 +47,20 @@ There are two variants for deploying the lab.
     ```
 
     You should see `Started` in the output.
+
 2. **Initialize the Lab Configuration:**
 
-    Run the provided `init.sh` which retrieves the EDA IP and sets it in the `configs/prometheus/prometheus.yml` files.
+    Run the provided `init.sh` which does the following:
+
+    - ensures `uv` and `clab-connector` tools are installed
+    - retrieves the EDA IP and sets it in the `configs/prometheus/prometheus.yml` files.
+    - save EDA API address in a `.eda_api_address` file.
 
 3. **Deploy the containerlab:**
 
     Run `containerlab deploy -t eda-st.clab.yaml` to deploy the lab.
 
-4. **Install Required Tools:**
-
-    Execute the following commands:
-
-    ```
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-    ```
-
-    ```
-    uv tool install git+https://github.com/eda-labs/clab-connector.git
-    ```
-
-5. **Install the EDA Apps (Prometheus and Kafka):**
+4. **Install the EDA Apps (Prometheus and Kafka):**
 
     Run:
 
@@ -77,19 +70,19 @@ There are two variants for deploying the lab.
 
     **TIP:** Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
 
-6. **Integrate Containerlab with EDA:**
+5. **Integrate Containerlab with EDA:**
 
     Run:
 
     ```
     clab-connector integrate \
     --topology-data clab-eda-st/topology-data.json \
-    --eda-url https://<eda-ip>
+    --eda-url https://$(cat .eda_api_address)
     ```
 
-    **TIP:** Check [Clab Connetor](https://github.com/eda-labs/clab-connector) for more details on the clab-connector options.
+    **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) for more details on the clab-connector options.
 
-7. **Deploy the Manifests:**
+6. **Deploy the Manifests:**
 
     Apply the manifests:
 
@@ -97,7 +90,7 @@ There are two variants for deploying the lab.
     kubectl apply -f manifests/with_clab
     ```
 
-8. **Enjoy Your Lab!**
+7. **Enjoy Your Lab!**
 
 ### Variant 2: CX (Simulation Platform)
 >
