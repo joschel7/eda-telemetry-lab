@@ -2,9 +2,7 @@ apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
   name: apps
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -17,9 +15,7 @@ apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
   name: bgproutes
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -32,9 +28,7 @@ apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
   name: cpu
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -45,12 +39,9 @@ spec:
 ---
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
-
 metadata:
   name: defaultbgppeers
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -65,9 +56,7 @@ kind: Export
 
 metadata:
   name: healthscore
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -79,12 +68,9 @@ spec:
 ---
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
-
 metadata:
   name: interface
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - mappings:
@@ -100,12 +86,9 @@ spec:
 ---
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
-
 metadata:
   name: interface-rate
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -116,12 +99,9 @@ spec:
 ---
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
-
 metadata:
   name: memory
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -134,9 +114,7 @@ apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
   name: network-instance
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - mappings:
@@ -154,9 +132,7 @@ apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
   name: srl-routes
-  labels: {}
   namespace: eda-system
-  annotations: {}
 spec:
   exports:
     - metricName:
@@ -175,9 +151,7 @@ spec:
   exports:
     - mode: on-change
       path: .namespace.alarms.alarm
-      period: 10s
       topic: alarms
     - mode: on-change
       path: .namespace.resources.cr.core_eda_nokia_com.v1.deviation
-      period: 10s
       topic: deviations
