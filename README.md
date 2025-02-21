@@ -65,7 +65,7 @@ There are two variants for deploying the lab.
     Run:
 
     ```
-    kubectl apply -f manifests/with_clab/0000_apps.yaml
+    kubectl apply -f manifests/0000_apps.yaml
     ```
 
     **TIP:** Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
@@ -74,20 +74,20 @@ There are two variants for deploying the lab.
 
     Run:
 
-    ```
+    ```bash
     clab-connector integrate \
     --topology-data clab-eda-st/topology-data.json \
     --eda-url https://$(cat .eda_api_address)
     ```
 
-    **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) for more details on the clab-connector options.
+    **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) docs for more details on the clab-connector options.
 
 6. **Deploy the Manifests:**
 
     Apply the manifests:
 
     ```
-    kubectl apply -f manifests/with_clab
+    kubectl apply -f manifests/clab
     ```
 
 7. **Enjoy Your Lab!**
