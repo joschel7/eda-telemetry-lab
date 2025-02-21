@@ -88,9 +88,9 @@ metadata:
 spec:
   exports:
     - mappings:
-        - destination: '1'
+        - destination: "1"
           source: up
-        - destination: '0'
+        - destination: "0"
           source: down
       metricName:
         regex: namespace_(.+)
@@ -140,9 +140,9 @@ metadata:
 spec:
   exports:
     - mappings:
-        - destination: '1'
+        - destination: "1"
           source: up
-        - destination: '0'
+        - destination: "0"
           source: down
       metricName:
         regex: namespace_(.+)

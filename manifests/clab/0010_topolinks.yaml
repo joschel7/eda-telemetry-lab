@@ -1,101 +1,103 @@
-apiVersion: v1
-items:
-  - apiVersion: core.eda.nokia.com/v1
-    kind: TopoLink
-    metadata:
-      generation: 1
-      labels:
-        eda.nokia.com/macvrf201: 'true'
-        eda.nokia.com/macvrf1001: 'true'
-        eda.nokia.com/role: edge
-      name: l1-l2-eth-1-1-lag-1
-      namespace: clab-eda-st
-    spec:
-      links:
-        - local:
-            interface: ethernet-1-1
-            interfaceResource: leaf1-ethernet-1-1
-            node: leaf1
-          speed: 10G
-          type: edge
-        - local:
-            interface: ethernet-1-1
-            interfaceResource: leaf2-ethernet-1-1
-            node: leaf2
-          speed: 10G
-          type: edge
-  - apiVersion: core.eda.nokia.com/v1
-    kind: TopoLink
-    metadata:
-      generation: 1
-      labels:
-        eda.nokia.com/macvrf202: 'true'
-        eda.nokia.com/macvrf1001: 'true'
-        eda.nokia.com/role: edge
-      name: l1-l2-eth-1-2-lag-2
-      namespace: clab-eda-st
-    spec:
-      links:
-        - local:
-            interface: ethernet-1-2
-            interfaceResource: leaf1-ethernet-1-2
-            node: leaf1
-          speed: 10G
-          type: edge
-        - local:
-            interface: ethernet-1-2
-            interfaceResource: leaf2-ethernet-1-2
-            node: leaf2
-          speed: 10G
-          type: edge
-  - apiVersion: core.eda.nokia.com/v1
-    kind: TopoLink
-    metadata:
-      generation: 1
-      labels:
-        eda.nokia.com/macvrf201: 'true'
-        eda.nokia.com/macvrf1001: 'true'
-        eda.nokia.com/role: edge
-      name: l3-l4-eth-1-1-lag-3
-      namespace: clab-eda-st
-    spec:
-      links:
-        - local:
-            interface: ethernet-1-1
-            interfaceResource: leaf3-ethernet-1-1
-            node: leaf3
-          speed: 10G
-          type: edge
-        - local:
-            interface: ethernet-1-1
-            interfaceResource: leaf4-ethernet-1-1
-            node: leaf4
-          speed: 10G
-          type: edge
-  - apiVersion: core.eda.nokia.com/v1
-    kind: TopoLink
-    metadata:
-      generation: 1
-      labels:
-        eda.nokia.com/macvrf202: 'true'
-        eda.nokia.com/macvrf1001: 'true'
-        eda.nokia.com/role: edge
-      name: l3-l4-eth-1-2-lag-4
-      namespace: clab-eda-st
-    spec:
-      links:
-        - local:
-            interface: ethernet-1-2
-            interfaceResource: leaf3-ethernet-1-2
-            node: leaf3
-          speed: 10G
-          type: edge
-        - local:
-            interface: ethernet-1-2
-            interfaceResource: leaf4-ethernet-1-2
-            node: leaf4
-          speed: 10G
-          type: edge
-kind: List
+---
+apiVersion: core.eda.nokia.com/v1
+kind: TopoLink
 metadata:
-  resourceVersion: ''
+  generation: 1
+  labels:
+    eda.nokia.com/macvrf201: "true"
+    eda.nokia.com/macvrf1001: "true"
+    eda.nokia.com/role: edge
+  name: l1-l2-eth-1-1-lag-1
+  namespace: clab-eda-st
+spec:
+  links:
+    - local:
+        interface: ethernet-1-1
+        interfaceResource: leaf1-ethernet-1-1
+        node: leaf1
+      speed: 10G
+      type: edge
+    - local:
+        interface: ethernet-1-1
+        interfaceResource: leaf2-ethernet-1-1
+        node: leaf2
+      speed: 10G
+      type: edge
+
+---
+apiVersion: core.eda.nokia.com/v1
+kind: TopoLink
+metadata:
+  generation: 1
+  labels:
+    eda.nokia.com/macvrf202: "true"
+    eda.nokia.com/macvrf1001: "true"
+    eda.nokia.com/role: edge
+  name: l1-l2-eth-1-2-lag-2
+  namespace: clab-eda-st
+spec:
+  links:
+    - local:
+        interface: ethernet-1-2
+        interfaceResource: leaf1-ethernet-1-2
+        node: leaf1
+      speed: 10G
+      type: edge
+    - local:
+        interface: ethernet-1-2
+        interfaceResource: leaf2-ethernet-1-2
+        node: leaf2
+      speed: 10G
+      type: edge
+
+---
+apiVersion: core.eda.nokia.com/v1
+kind: TopoLink
+metadata:
+  generation: 1
+  labels:
+    eda.nokia.com/macvrf201: "true"
+    eda.nokia.com/macvrf1001: "true"
+    eda.nokia.com/role: edge
+  name: l3-l4-eth-1-1-lag-3
+  namespace: clab-eda-st
+spec:
+  links:
+    - local:
+        interface: ethernet-1-1
+        interfaceResource: leaf3-ethernet-1-1
+        node: leaf3
+      speed: 10G
+      type: edge
+    - local:
+        interface: ethernet-1-1
+        interfaceResource: leaf4-ethernet-1-1
+        node: leaf4
+      speed: 10G
+      type: edge
+
+---
+apiVersion: core.eda.nokia.com/v1
+kind: TopoLink
+metadata:
+  generation: 1
+  labels:
+    eda.nokia.com/macvrf202: "true"
+    eda.nokia.com/macvrf1001: "true"
+    eda.nokia.com/role: edge
+  name: l3-l4-eth-1-2-lag-4
+  namespace: clab-eda-st
+spec:
+  links:
+    - local:
+        interface: ethernet-1-2
+        interfaceResource: leaf3-ethernet-1-2
+        node: leaf3
+      speed: 10G
+      type: edge
+    - local:
+        interface: ethernet-1-2
+        interfaceResource: leaf4-ethernet-1-2
+        node: leaf4
+      speed: 10G
+      type: edge
