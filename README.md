@@ -138,11 +138,10 @@ There are two variants for deploying the lab.
 ## Accessing Network Elements in clab
 
 - **SR Linux Nodes:**
-  Access these devices via SSH using the management IP addresses or hostnames (e.g., `ssh admin@leaf1` or `ssh admin@spine1`).
+  Access these devices via SSH using the management IP addresses or hostnames (e.g., `ssh clab-eda-st-leaf2`).
 
 - **Linux Clients:**
-  Although SSH is not enabled by default, you can access them with:
-     `docker exec -it client1 bash`
+  Access client-emulating container via SSH: e.g. `ssh user@clab-eda-st-client3` (password: `multit00l`).
 
 ## Accessing Network Elements in cx (Simulation Platform)
 
