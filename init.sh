@@ -1,16 +1,20 @@
 #!/bin/bash
 
 # Define the configuration file path
-CONFIG_FILE="configs/prometheus/prometheus.yml"
+PROM_CONFIG_FILE="configs/prometheus/prometheus.yml"
 
 # Check if the configuration file exists
-if [[ ! -f "$CONFIG_FILE" ]]; then
-  echo "Error: $CONFIG_FILE not found."
+if [[ ! -f "$PROM_CONFIG_FILE" ]]; then
+  echo "Error: $PROM_CONFIG_FILE not found."
   exit 1
 fi
 
-# Prompt the user for the EDA IP/FQDN with usage hint
-read -p "Enter EDA IP/FQDN (e.g., eda.nokia.com:9443 if using port-forward, or eda.nokia.com if using 443): " EDA_IP
+# Fetch EDA ext domain name from engine config
+if command -v uv &> /dev/null; then
+    EDA_IP=$(uv run ./scripts/get_eda_ip.py)
+else
+    EDA_IP=$(python ./scripts/get_eda_ip.py)
+fi
 
 # Ensure input is not empty
 if [[ -z "$EDA_IP" ]]; then
@@ -21,6 +25,6 @@ fi
 # Replace the IP/FQDN in the targets line.
 # This sed command looks for a line starting with optional spaces, a dash, then "targets: ['" followed by any characters until the next single quote,
 # and replaces that content with the provided EDA_IP.
-sed -i.bak -E "s/(^[[:space:]]*- targets: \[')[^']+('].*)/\1${EDA_IP}\2/" "$CONFIG_FILE"
+sed -i.bak -E "s/(^[[:space:]]*- targets: \[')[^']+('].*)/\1${EDA_IP}\2/" "$PROM_CONFIG_FILE"
 
-echo "Updated target to '$EDA_IP' in $CONFIG_FILE"
+echo "Updated target to '$EDA_IP' in $PROM_CONFIG_FILE"

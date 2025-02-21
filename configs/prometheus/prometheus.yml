@@ -6,7 +6,7 @@ scrape_configs:
   - job_name: 'eda-exporter'
     scrape_interval: 5s
     static_configs:
-      - targets: ['100.82.85.163']
+      - targets: ['10.1.0.11']
     metrics_path: /core/httpproxy/v1/prometheus-exporter/metrics
     scheme: https
     tls_config:
