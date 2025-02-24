@@ -1,6 +1,6 @@
-<mxfile compressed="false" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:135.0) Gecko/20100101 Firefox/135.0" version="26.0.16">
+<mxfile compressed="false" host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.15 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.15">
   <diagram id="Network Topology" name="Network Topology">
-    <mxGraphModel dx="576" dy="314" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="725" pageHeight="600" background="none" math="0" shadow="0">
+    <mxGraphModel dx="574" dy="386" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="725" pageHeight="600" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -51,7 +51,7 @@
           </mxCell>
         </object>
         <object label="rate" source="leaf3:ethernet-1/49:spine1:ethernet-1/3" target="mid:spine1:ethernet-1/3:leaf3:ethernet-1/49" id="link_id:leaf3:ethernet-1/49:spine1:ethernet-1/3">
-          <mxCell style="rounded=0;orthogonalLoop=1;html=1;startSize=6;endArrow=classicThin;endFill=1;endSize=2;fontSize=12;strokeColor=light-dark(#bdc8d2, #5c646e);fontColor=#FFFFFF;textOpacity=60;labelBackgroundColor=#4D5766;jumpStyle=gap;strokeWidth=3;fontFamily=Google Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DGoogle%2BSans;" parent="1" source="leaf3:ethernet-1/49:spine1:ethernet-1/3" target="mid:spine1:ethernet-1/3:leaf3:ethernet-1/49" edge="1">
+          <mxCell style="rounded=0;orthogonalLoop=1;html=1;startSize=6;endArrow=classicThin;endFill=1;endSize=2;fontSize=12;strokeColor=light-dark(#BDC8D2,#BEC8D2);fontColor=#FFFFFF;textOpacity=60;labelBackgroundColor=#4D5766;jumpStyle=gap;strokeWidth=3;fontFamily=Google Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DGoogle%2BSans;" parent="1" source="leaf3:ethernet-1/49:spine1:ethernet-1/3" target="mid:spine1:ethernet-1/3:leaf3:ethernet-1/49" edge="1">
             <mxGeometry relative="1" as="geometry" />
           </mxCell>
         </object>
@@ -168,7 +168,7 @@
           </mxCell>
         </object>
         <object label="rate" source="client2:eth1:leaf1:ethernet-1/2" target="mid:leaf1:ethernet-1/2:client2:eth1" id="link_id:client2:eth1:leaf1:ethernet-1/2">
-          <mxCell style="rounded=0;orthogonalLoop=1;html=1;startSize=6;endArrow=classicThin;endFill=1;endSize=2;fontSize=12;strokeColor=light-dark(#bdc8d2, #5c646e);fontColor=#FFFFFF;textOpacity=60;labelBackgroundColor=#4D5766;jumpStyle=gap;strokeWidth=3;fontFamily=Google Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DGoogle%2BSans;" parent="1" source="client2:eth1:leaf1:ethernet-1/2" target="mid:leaf1:ethernet-1/2:client2:eth1" edge="1">
+          <mxCell style="rounded=0;orthogonalLoop=1;html=1;startSize=6;endArrow=classicThin;endFill=1;endSize=2;fontSize=12;strokeColor=light-dark(#BEC8D2,#BEC8D2);fontColor=#FFFFFF;textOpacity=60;labelBackgroundColor=#4D5766;jumpStyle=gap;strokeWidth=3;fontFamily=Google Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DGoogle%2BSans;" parent="1" source="client2:eth1:leaf1:ethernet-1/2" target="mid:leaf1:ethernet-1/2:client2:eth1" edge="1">
             <mxGeometry relative="1" as="geometry" />
           </mxCell>
         </object>
