@@ -41,8 +41,11 @@ topology:
       image: ghcr.io/srl-labs/network-multitool
       binds:
         - configs/clients:/configs
+        - configs/clients/index.html:/usr/share/nginx/html/index.html
       exec:
         - bash /configs/__clabNodeName__.sh
+      ports:
+        - 80:80
 
     client2:
       kind: linux
