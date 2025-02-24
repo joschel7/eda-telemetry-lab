@@ -32,7 +32,7 @@ INTERVAL=1                     # Reporting interval (seconds)
 PORT1=5201                     # Port for first set of tests (TCP/UDP)
 PORT2=5202                     # Port for second set of tests (TCP/UDP)
 PARALLEL=10                    # Number of parallel streams
-BANDWIDTH="150K"               # Bandwidth parameter
+BANDWIDTH="120K"               # Bandwidth parameter
 MSS=1400                       # Maximum segment size
 WINDOW=4K                      # Window size
 
@@ -54,12 +54,12 @@ start_client4() {
     for i in {1..2}; do
         echo "  - Starting test: ${CLIENT4_CONTAINER} -> ${CLIENT1_IP_TCP}:${PORT1}"
         sudo docker exec "${CLIENT4_CONTAINER}" \
-            iperf3 -c "${CLIENT1_IP_TCP}" --bidir -t "${DURATION}" -i "${INTERVAL}" -p "${PORT1}" \
+            iperf3 -c "${CLIENT1_IP_TCP}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT1}" \
                 -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" >/dev/null 2>&1 &
 
         echo "  - Starting test: ${CLIENT4_CONTAINER} -> ${CLIENT1_IP_VLAN}:${PORT2}"
         sudo docker exec "${CLIENT4_CONTAINER}" \
-            iperf3 -c "${CLIENT1_IP_VLAN}" --bidir -t "${DURATION}" -i "${INTERVAL}" -p "${PORT2}" \
+            iperf3 -c "${CLIENT1_IP_VLAN}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT2}" \
                 -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" >/dev/null 2>&1 &
     done
 }
@@ -70,12 +70,12 @@ start_client3() {
     for i in {1..2}; do
         echo "  - Starting test: ${CLIENT3_CONTAINER} -> ${CLIENT2_IP_TCP}:${PORT1}"
         sudo docker exec "${CLIENT3_CONTAINER}" \
-            iperf3 -c "${CLIENT2_IP_TCP}" --bidir -t "${DURATION}" -i "${INTERVAL}" -p "${PORT1}" \
+            iperf3 -c "${CLIENT2_IP_TCP}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT1}" \
                 -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" >/dev/null 2>&1 &
 
         echo "  - Starting test: ${CLIENT3_CONTAINER} -> ${CLIENT2_IP_VLAN}:${PORT2}"
         sudo docker exec "${CLIENT3_CONTAINER}" \
-            iperf3 -c "${CLIENT2_IP_VLAN}" --bidir -t "${DURATION}" -i "${INTERVAL}" -p "${PORT2}" \
+            iperf3 -c "${CLIENT2_IP_VLAN}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT2}" \
                 -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" >/dev/null 2>&1 &
     done
 }
