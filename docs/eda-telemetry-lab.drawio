@@ -539,7 +539,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="wPmjHhR5b-S29t-uTLV2" name="Services">
-    <mxGraphModel dx="988" dy="538" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" background="light-dark(#4D5766,#4D5766)" math="0" shadow="0">
+    <mxGraphModel dx="1431" dy="779" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" background="light-dark(#4D5766,#4D5766)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
