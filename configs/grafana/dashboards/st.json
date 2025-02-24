@@ -761,7 +761,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -863,7 +864,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1018,7 +1020,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1121,7 +1124,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1255,7 +1259,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1334,7 +1339,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               },
               {
                 "color": "red",
@@ -1356,7 +1362,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "dark-blue"
+                      "color": "dark-blue",
+                      "value": null
                     }
                   ]
                 }
@@ -1375,7 +1382,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "dark-blue"
+                      "color": "dark-blue",
+                      "value": null
                     }
                   ]
                 }
@@ -1475,7 +1483,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               },
               {
                 "color": "red",
@@ -1562,7 +1571,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1653,7 +1663,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1773,7 +1784,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1869,7 +1881,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1947,7 +1960,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1959,8 +1973,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 13,
-        "w": 2,
+        "h": 6,
+        "w": 3,
         "x": 0,
         "y": 73
       },
@@ -2008,8 +2022,8 @@
       },
       "gridPos": {
         "h": 13,
-        "w": 15,
-        "x": 2,
+        "w": 14,
+        "x": 3,
         "y": 73
       },
       "id": 37,
@@ -2030,7 +2044,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "{source=\"$NE\"}",
+          "expr": "{source=\"$NE\", application=~\"$syslog_app\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -2096,13 +2110,86 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum by (application) (count_over_time({source=\"$NE\"}[$__range]))",
+          "expr": "sum by (application) (count_over_time({source=\"$NE\", application=~\"$syslog_app\"}[$__range]))",
           "queryType": "range",
           "refId": "A"
         }
       ],
       "title": "Total logs $NE",
       "type": "piechart"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "thresholdsStyle": {
+              "mode": "color",
+              "thresholds": []
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 0,
+        "y": 79
+      },
+      "id": 54,
+      "options": {
+        "alwaysVisibleFilter": false,
+        "autoScroll": false,
+        "browserTabNamePattern": "",
+        "collapsedByDefault": false,
+        "customValue": false,
+        "displayMode": "button",
+        "emptyValue": false,
+        "favorites": {
+          "enabled": false,
+          "storage": "browser"
+        },
+        "filter": false,
+        "groupSelection": false,
+        "header": true,
+        "isUseLocalTime": false,
+        "minimizeOutputFormat": "text",
+        "padding": 10,
+        "persistent": false,
+        "saveSelectedGroup": false,
+        "saveSelectedGroupKey": "",
+        "showGroupTotal": false,
+        "showLabel": false,
+        "showName": false,
+        "showResetButton": false,
+        "showTotal": false,
+        "statusSort": false,
+        "sticky": false,
+        "tabsInOrder": true,
+        "variable": "syslog_app"
+      },
+      "pluginVersion": "3.7.0",
+      "title": "Syslog App",
+      "type": "volkovlabs-variable-panel"
     },
     {
       "datasource": {
@@ -2154,7 +2241,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -2188,7 +2276,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum by (level) (count_over_time({source=\"$NE\"} | logfmt [1m]))",
+          "expr": "sum by (level) (count_over_time({source=\"$NE\", application=~\"$syslog_app\"} | logfmt [1m]))",
           "legendFormat": "{{level}}",
           "queryType": "range",
           "refId": "A"
@@ -2345,6 +2433,48 @@
         "query": "clab-eda-st",
         "skipUrlSync": false,
         "type": "constant"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "sr_aaa_mgr",
+            "sr_grpc_server",
+            "sr_license_mgr",
+            "sr_xdp_cpm",
+            "sr_xdp_lc_1",
+            ""
+          ],
+          "value": [
+            "sr_aaa_mgr",
+            "sr_grpc_server",
+            "sr_license_mgr",
+            "sr_xdp_cpm",
+            "sr_xdp_lc_1",
+            ""
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "P8E80F9AEF21F6940"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": true,
+        "name": "syslog_app",
+        "options": [],
+        "query": {
+          "label": "application",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
@@ -2369,6 +2499,6 @@
   "timezone": "",
   "title": "Telemetry Playground",
   "uid": "Telemetry_Playground",
-  "version": 19,
+  "version": 24,
   "weekStart": ""
 }
