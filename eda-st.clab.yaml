@@ -35,43 +35,43 @@ topology:
       kind: nokia_srlinux
       mgmt-ipv4: 10.58.2.22
 
-    client1:
+    server1:
       kind: linux
       mgmt-ipv4: 10.58.2.31
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - configs/clients:/configs
-        - configs/clients/webui/nginx.conf:/etc/nginx/nginx.conf
-        - configs/clients/webui/index.html:/usr/share/nginx/html/index.html
+        - configs/servers:/configs
+        - configs/servers/webui/nginx.conf:/etc/nginx/nginx.conf
+        - configs/servers/webui/index.html:/usr/share/nginx/html/index.html
       exec:
         - bash /configs/__clabNodeName__.sh
       ports:
         - 8080:80
 
-    client2:
+    server2:
       kind: linux
       mgmt-ipv4: 10.58.2.32
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - configs/clients:/configs
+        - configs/servers:/configs
       exec:
         - bash /configs/__clabNodeName__.sh
 
-    client3:
+    server3:
       kind: linux
       mgmt-ipv4: 10.58.2.33
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - configs/clients:/configs
+        - configs/servers:/configs
       exec:
         - bash /configs/__clabNodeName__.sh
 
-    client4:
+    server4:
       kind: linux
       mgmt-ipv4: 10.58.2.34
       image: ghcr.io/srl-labs/network-multitool
       binds:
-        - configs/clients:/configs
+        - configs/servers:/configs
       exec:
         - bash /configs/__clabNodeName__.sh
 
@@ -159,14 +159,14 @@ topology:
         - 9092:9092
 
   links:
-    - endpoints: ["leaf1:ethernet-1/1", "client1:eth1"]
-    - endpoints: ["leaf2:ethernet-1/1", "client1:eth2"]
-    - endpoints: ["leaf1:ethernet-1/2", "client2:eth1"]
-    - endpoints: ["leaf2:ethernet-1/2", "client2:eth2"]
-    - endpoints: ["leaf3:ethernet-1/1", "client3:eth1"]
-    - endpoints: ["leaf4:ethernet-1/1", "client3:eth2"]
-    - endpoints: ["leaf3:ethernet-1/2", "client4:eth1"]
-    - endpoints: ["leaf4:ethernet-1/2", "client4:eth2"]
+    - endpoints: ["leaf1:ethernet-1/1", "server1:eth1"]
+    - endpoints: ["leaf2:ethernet-1/1", "server1:eth2"]
+    - endpoints: ["leaf1:ethernet-1/2", "server2:eth1"]
+    - endpoints: ["leaf2:ethernet-1/2", "server2:eth2"]
+    - endpoints: ["leaf3:ethernet-1/1", "server3:eth1"]
+    - endpoints: ["leaf4:ethernet-1/1", "server3:eth2"]
+    - endpoints: ["leaf3:ethernet-1/2", "server4:eth1"]
+    - endpoints: ["leaf4:ethernet-1/2", "server4:eth2"]
     - endpoints: ["spine1:ethernet-1/1", "leaf1:ethernet-1/49"]
     - endpoints: ["spine2:ethernet-1/1", "leaf1:ethernet-1/50"]
     - endpoints: ["spine1:ethernet-1/2", "leaf2:ethernet-1/49"]

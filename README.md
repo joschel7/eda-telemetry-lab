@@ -144,7 +144,7 @@ There are two variants for deploying the lab.
   Access these devices via SSH using the management IP addresses or hostnames (e.g., `ssh clab-eda-st-leaf2`).
 
 - **Linux Clients:**
-  Access client-emulating container via SSH: e.g. `ssh user@clab-eda-st-client3` (password: `multit00l`).
+  Access client-emulating container via SSH: e.g. `ssh user@clab-eda-st-server3` (password: `multit00l`).
 
 ## Accessing Network Elements in cx (Simulation Platform)
 
@@ -194,13 +194,13 @@ The lab includes a traffic script (named **traffic.sh**) that launches bidirecti
 
 **Test Pairs Configured:**
 
-- **Client4 to Client1:**
-  - From client4 (`clab-eda-st-client4`) targeting client1’s IP `10.10.10.1` on port **5201**
-  - From client4 targeting client1’s VLAN interface `10.20.1.1` on port **5202**
+- **Server4 to Server1:**
+  - From server4 (`clab-eda-st-server4`) targeting server1’s IP `10.10.10.1` on port **5201**
+  - From server4 targeting server1’s VLAN interface `10.20.1.1` on port **5202**
 
-- **Client3 to Client2:**
-  - From client3 (`clab-eda-st-client3`) targeting client2’s IP `10.10.10.2` on port **5201**
-  - From client3 targeting client2’s VLAN interface `10.20.2.2` on port **5202**
+- **Server3 to Server2:**
+  - From server3 (`clab-eda-st-server3`) targeting server2’s IP `10.10.10.2` on port **5201**
+  - From server3 targeting server2’s VLAN interface `10.20.2.2` on port **5202**
 
 **Default Test Settings:**
 
@@ -216,17 +216,17 @@ The lab includes a traffic script (named **traffic.sh**) that launches bidirecti
     To launch tests from a specific client or from both clients, run:
 
     ```bash
-    ./traffic.sh start client3
-    ./traffic.sh start client4
+    ./traffic.sh start server3
+    ./traffic.sh start server4
     ./traffic.sh start all
     ```
 
 - **Stop Traffic:**
   To stop tests on a specific client or on all clients, run:
-  
+
     ```bash
-    ./traffic.sh stop client3
-    ./traffic.sh stop client4
+    ./traffic.sh stop server3
+    ./traffic.sh stop server4
     ./traffic.sh stop all
     ```
 
