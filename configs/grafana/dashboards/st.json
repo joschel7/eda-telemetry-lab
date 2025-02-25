@@ -2320,9 +2320,10 @@
       },
       {
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "None",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
@@ -2436,36 +2437,12 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
-            "sr_aaa_mgr",
-            "sr_bgp_mgr",
-            "sr_chassis_mgr",
-            "sr_evpn_mgr",
-            "sr_grpc_server",
-            "sr_lag_mgr",
-            "sr_license_mgr",
-            "sr_log_mgr",
-            "sr_mgmt_server",
-            "sr_net_inst_mgr",
-            "sr_xdp_cpm",
-            "sr_xdp_lc_1",
-            "sr_bfd_mgr"
+            "sr_aaa_mgr"
           ],
           "value": [
-            "sr_aaa_mgr",
-            "sr_bgp_mgr",
-            "sr_chassis_mgr",
-            "sr_evpn_mgr",
-            "sr_grpc_server",
-            "sr_lag_mgr",
-            "sr_license_mgr",
-            "sr_log_mgr",
-            "sr_mgmt_server",
-            "sr_net_inst_mgr",
-            "sr_xdp_cpm",
-            "sr_xdp_lc_1",
-            "sr_bfd_mgr"
+            "sr_aaa_mgr"
           ]
         },
         "datasource": {
@@ -2473,6 +2450,7 @@
           "uid": "P8E80F9AEF21F6940"
         },
         "definition": "",
+        "description": "Syslog Applications",
         "hide": 2,
         "includeAll": false,
         "multi": true,
@@ -2484,7 +2462,7 @@
           "stream": "",
           "type": 1
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
