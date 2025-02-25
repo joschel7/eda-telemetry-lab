@@ -92,6 +92,9 @@ There are two variants for deploying the lab.
 
 7. **Enjoy Your Lab!**
 
+> [!TIP]
+> **Shutdown interfaces via WebUI:** Client 1, exposes the port 8080 for the WebUI. You can use the WebUI to shutdown interfaces on the SR Linux nodes.	
+
 ### Variant 2: CX (Simulation Platform)
 >
 > [!NOTE]
