@@ -1,0 +1,26 @@
+apiVersion: config.eda.nokia.com/v1alpha1
+kind: Configlet
+metadata:
+  name: jsonrpc
+  namespace: clab-eda-st
+spec:
+  configs:
+    - config: |-
+        {
+            "admin-state": "enable"
+        }
+      operation: Create
+      path: .system.json-rpc-server
+    - config: |-
+        {
+            "http": {
+                "admin-state": "enable"
+            }
+        }
+      operation: Create
+      path: .system.json-rpc-server.network-instance{.name=="mgmt"}
+  endpointSelector:
+    - eda.nokia.com/role=leaf
+    - eda.nokia.com/role=spine
+  operatingSystem: srl
+  priority: 0
