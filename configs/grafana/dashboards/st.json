@@ -64,7 +64,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 11,
         "w": 2,
         "x": 0,
         "y": 1
@@ -170,7 +170,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 11,
         "w": 8,
         "x": 2,
         "y": 1
@@ -357,7 +357,7 @@
         "h": 5,
         "w": 10,
         "x": 0,
-        "y": 11
+        "y": 12
       },
       "id": 48,
       "options": {
@@ -409,11 +409,13 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -429,21 +431,128 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*bgpgroup-ebgp-fabric.*"
+            },
+            "properties": [
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 16
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 8
+                    },
+                    {
+                      "color": "green",
+                      "value": 16
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*bgpgroup-ibgp-rr-fabric.*"
+            },
+            "properties": [
+              {
+                "id": "min",
+                "value": -1
+              },
+              {
+                "id": "max",
+                "value": 8
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 4
+                    },
+                    {
+                      "color": "green",
+                      "value": 8
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*bgpgroup-ibgp-rrclient.*"
+            },
+            "properties": [
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 8
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 4
+                    },
+                    {
+                      "color": "green",
+                      "value": 8
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 3,
+        "h": 5,
         "w": 10,
         "x": 0,
-        "y": 16
+        "y": 17
       },
       "id": 49,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
-        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -451,9 +560,9 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
       "pluginVersion": "11.2.0",
       "targets": [
@@ -464,7 +573,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "resources_cr_status_protocols_eda_nokia_com_v1alpha1_defaultbgpgroup_status_numPeers{namespace_name='$namespace'}",
+          "expr": "resources_cr_status_protocols_eda_nokia_com_v1alpha1_defaultbgpgroup_status_numPeers{namespace_name='$namespace'} - on(namespace_name, instance, job, defaultbgpgroup_name) resources_cr_status_protocols_eda_nokia_com_v1alpha1_defaultbgpgroup_status_numPeersOperDown{namespace_name='$namespace'}",
           "instant": false,
           "legendFormat": "{{defaultbgpgroup_name}}",
           "range": true,
@@ -472,81 +581,7 @@
         }
       ],
       "title": "Number of BGP peers",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 10,
-        "x": 0,
-        "y": 19
-      },
-      "id": 50,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "resources_cr_status_protocols_eda_nokia_com_v1alpha1_defaultbgpgroup_status_numPeersOperDown{namespace_name='$namespace'}",
-          "instant": false,
-          "legendFormat": "{{defaultbgpgroup_name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Number of BGP peers down",
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "collapsed": false,
@@ -1973,7 +2008,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 3,
         "w": 3,
         "x": 0,
         "y": 73
@@ -2150,10 +2185,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 10,
         "w": 3,
         "x": 0,
-        "y": 79
+        "y": 76
       },
       "id": 54,
       "options": {
@@ -2320,10 +2355,9 @@
       },
       {
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "default",
+          "value": "default"
         },
         "datasource": {
           "type": "prometheus",
