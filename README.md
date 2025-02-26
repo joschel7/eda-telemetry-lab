@@ -93,7 +93,7 @@ There are two variants for deploying the lab.
 7. **Enjoy Your Lab!**
 
 > [!TIP]
-> **Shutdown interfaces via WebUI:** Client 1, exposes the port 8080 for the WebUI. You can use the WebUI to shutdown interfaces on the SR Linux nodes.	
+> **Shutdown interfaces via WebUI:** Client 1, exposes the port 8080 for the WebUI. You can use the WebUI to shutdown interfaces on the SR Linux nodes. 
 
 ### Variant 2: CX (Simulation Platform)
 >
@@ -207,7 +207,7 @@ The lab includes a traffic script (named **traffic.sh**) that launches bidirecti
 - **Duration:** 10000 seconds
 - **Report Interval:** 1 second
 - **Parallel Streams:** 10
-- **Bandwidth:** 150K
+- **Bandwidth:** 120K
 - **MSS:** 1400
 
 **Usage Examples:**

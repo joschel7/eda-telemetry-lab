@@ -18,7 +18,7 @@
 #   • Duration: 10000 seconds (modifiable via the DURATION environment variable)
 #   • Report interval: 1 second
 #   • Parallel streams: 10
-#   • Bandwidth: 150K
+#   • Bandwidth: 120K
 #   • MSS: 1400
 #
 # Usage: ./traffic.sh {start|stop} {server3|server4|all}
