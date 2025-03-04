@@ -14,7 +14,7 @@ spec:
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
-  name: bgproutes
+  name: bgp-stats
   namespace: eda-system
 spec:
   exports:
@@ -40,7 +40,7 @@ spec:
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
-  name: defaultbgppeers
+  name: default-bgp-group-status
   namespace: eda-system
 spec:
   exports:
@@ -53,9 +53,8 @@ spec:
 ---
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
-
 metadata:
-  name: healthscore
+  name: default-router-status
   namespace: eda-system
 spec:
   exports:
@@ -87,7 +86,7 @@ spec:
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
-  name: interface-rate
+  name: interface-traffic-rate
   namespace: eda-system
 spec:
   exports:
@@ -131,7 +130,7 @@ spec:
 apiVersion: prom.eda.nokia.com/v1alpha1
 kind: Export
 metadata:
-  name: srl-routes
+  name: ipv4-statistics
   namespace: eda-system
 spec:
   exports:
@@ -139,19 +138,3 @@ spec:
         regex: namespace_(.+)
         replacement: $1
       path: .namespace.node.srl.network-instance.route-table.ipv4-unicast.statistics
-
----
-apiVersion: kafka.eda.nokia.com/v1alpha1
-kind: Producer
-metadata:
-  name: kafka
-  namespace: eda-system
-spec:
-  brokers: 10.58.2.46:9092
-  exports:
-    - mode: on-change
-      path: .namespace.alarms.alarm
-      topic: alarms
-    - mode: on-change
-      path: .namespace.resources.cr.core_eda_nokia_com.v1.deviation
-      topic: deviations
