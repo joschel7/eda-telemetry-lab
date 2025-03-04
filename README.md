@@ -179,29 +179,19 @@ The lab includes a traffic script (named **traffic.sh**) that launches bidirecti
     ./traffic.sh stop all
     ```
 
-## Additional Components
+## EDA Configuration
 
-### Containerlab File
-
-The provided containerlab file defines the lab topology. For the Containerlab (clab) variant, it includes:
-
-- Nokia SR Linux nodes (leaf and spine switches)
-- Linux clients configured with bonding, VLANs, and iperf3 servers/clients
-- Telemetry and logging containers (Alloy, Prometheus, Grafana, Promtail, Loki, Kafka)
-
-For the CX variant, the topology includes only the telemetry and logging containers.
-
-### EDA Configuration
-
-The lab includes several manifest files that define the configuration of EDA apps and the network fabric. For example:
+The lab includes several manifest files that define the configuration of EDA apps and the network fabric:
 
 - **Apps Installation (0000_apps.yaml):** Installs the Prometheus exporter (prom-exporter v2.0.0) and the Kafka exporter (kafka-exporter v2.0.1).
-- **Edge Interfaces (0009_edge-interfaces.yaml / 0010_edge-interfaces.yaml):** Configure LAG, LLDP, and edge interfaces on SR Linux nodes.
-- **TopoLinks (0010_topolinks.yaml / 0009_topolinks.yaml):** Define physical and logical links between network elements.
-- **Exporters (0020_exporters.yaml / 0025_exporters.yaml):** Export telemetry metrics (CPU, memory, interface status, routes, etc.) for Prometheus.
-- **Syslog (0021_syslog.yaml / 0026_syslog.yaml):** Set up syslog forwarding to a centralized server.
-- **Fabric Topology (0030_fabric.yaml):** Establish the Clos fabric connectivity.
-- **Virtual Networks (0040_ipvrf2001.yaml and 0041_macvrf1001.yaml):** Configure VRFs and VLANs for traffic segmentation.
+- **Interfaces (0009_interfaces.yaml):** Configure LAG interfaces on SR Linux leaf switches.
+- **TopoLinks (0010_topolinks.yaml):** Define LAG topology links hanging off of leaf switches towards the servers.
+- **Prometheus Exporters (0020_prom_exporters.yaml):** Prometheus Exporter configuration to stream telemetry metrics (CPU, memory, interface status, routes, etc.).
+- **Kafka Exporter (0021_kafka_exporter.yaml):** Kafka Producer configuration to stream alarms and deviations.
+- **JSON-RPC server config (0025_json-rpc.yaml):** Configlet with the JSON-RPC server configuration to enable port shutdown automation.
+- **Syslog (0026_syslog.yaml):** Set up syslog forwarding to a centralized server.
+- **Fabric Topology (0030_fabric.yaml):** The Clos-based fabric configuration with eBPG/iBGP underlay/overlay.
+- **Virtual Networks (0040_ipvrf2001.yaml and 0041_macvrf1001.yaml):** Virtual networks configuration to support IP VRF and MAC VRF services.
 
 ## Conclusion
 
