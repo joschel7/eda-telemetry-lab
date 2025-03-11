@@ -24,11 +24,11 @@ if [[ ! -f "$PROM_CONFIG_FILE" ]]; then
 fi
 
 # Fetch EDA ext domain name from engine config
-EDA_IP=$(uv run ./scripts/get_eda_ip.py)
+EDA_API=$(uv run ./scripts/get_eda_api.py)
 
 
 # Ensure input is not empty
-if [[ -z "$EDA_IP" ]]; then
+if [[ -z "$EDA_API" ]]; then
   echo "No input provided. Exiting."
   exit 1
 fi
@@ -36,11 +36,9 @@ fi
 # Replace the IP/FQDN in the targets line.
 # This sed command looks for a line starting with optional spaces, a dash, then "targets: ['" followed by any characters until the next single quote,
 # and replaces that content with the provided EDA_IP.
-sed -i.bak -E "s/(^[[:space:]]*- targets: \[')[^']+('].*)/\1${EDA_IP}\2/" "$PROM_CONFIG_FILE"
+sed -i.bak -E "s/(^[[:space:]]*- targets: \[')[^']+('].*)/\1${EDA_API}\2/" "$PROM_CONFIG_FILE"
 
-echo "Updated target to '$EDA_IP' in $PROM_CONFIG_FILE"
+echo "Updated target to '$EDA_API' in $PROM_CONFIG_FILE"
 
 # save EDA API address to a file
-EDA_EXT_DOMAIN_NAME=$(kubectl -n eda-system get engineconfigs/engine-config -o jsonpath={.spec.cluster.external.domainName})
-EDA_HTTPS_PORT=$(kubectl -n eda-system get engineconfigs/engine-config -o jsonpath={.spec.cluster.external.httpsPort})
-echo "$EDA_EXT_DOMAIN_NAME:$EDA_HTTPS_PORT" > .eda_api_address
+echo "$EDA_API" > .eda_api_address
