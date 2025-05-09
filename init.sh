@@ -13,6 +13,7 @@ function install-uv {
 # install uv and clab-connector
 install-uv
 uv tool install git+https://github.com/eda-labs/clab-connector.git
+uv tool upgrade clab-connector
 
 # Define the configuration file path
 PROM_CONFIG_FILE="configs/prometheus/prometheus.yml"

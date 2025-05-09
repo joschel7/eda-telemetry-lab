@@ -28,7 +28,7 @@ The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry 
 There are two variants for deploying the lab:
 
 - **Using Containerlab**:
-    The simulated SR Linux nodes, client containers and the telemetry stack are deployed using Containerlab. This deployment variant requires a license for EDA, as the simulated SR Linux nodes are deployed outside of EDA.  
+    The simulated SR Linux nodes, client containers and the telemetry stack are deployed using Containerlab. This deployment variant requires a license for EDA, as the simulated SR Linux nodes are deployed outside of EDA.
     On the positive side, using Containerlab allows for live traffic generation using iperf.
 - **Using CX** (EDA Simulation Platform):
     The simulated SR Linux nodes are spawned in EDA CX and thus do not require a license. The telemetry stack for convenience is deployed using Containerlab. This deployment variant does not require a license but does not support traffic generation with iperf.
@@ -37,8 +37,8 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
 > [!IMPORTANT]
 > **EDA Installation Mode:** This lab requires EDA to be installed in the [`Simulate=False`][sim-false-doc] mode. Ensure that your EDA deployment is configured accordingly.
->
-> **Hardware License:** A valid `hardware license` for EDA version 24.12 is mandatory for using this lab with Containerlab.
+> **EDA Version:** This lab is designed for EDA version 25.4. Ensure you are using this version or later.
+> **Hardware License:** A valid `hardware license` for EDA version 25.4 is mandatory for using this lab with Containerlab.
 
 [sim-false-doc]: https://docs.eda.dev/user-guide/containerlab-integration/#installing-eda
 
