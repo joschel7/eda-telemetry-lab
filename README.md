@@ -91,8 +91,8 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) docs for more details on the clab-connector options.
 
-    > [!IMPORTANT]
-    > **--skip-edge-intfs** Is mandatory for this lab. It skips the integration of the edge interfaces. This is because we create lags via the manifests.
+> [!IMPORTANT]
+> **--skip-edge-intfs** Is mandatory for this lab. It skips the integration of the edge interfaces. This is because we create lags via the manifests.
 
 6. **Deploy the Manifests:**
 
