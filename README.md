@@ -84,11 +84,15 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     ```bash
     clab-connector integrate \
-    --topology-data clab-eda-st/topology-data.json \
-    --eda-url https://$(cat .eda_api_address)
+      --topology-data clab-eda-st/topology-data.json \
+      --eda-url "https://$(cat .eda_api_address)" \
+      --skip-edge-intfs
     ```
 
     **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) docs for more details on the clab-connector options.
+
+    > [!IMPORTANT]
+    > **--skip-edge-intfs** Is mandatory for this lab. It skips the integration of the edge interfaces. This is because we create lags via the manifests.
 
 6. **Deploy the Manifests:**
 
