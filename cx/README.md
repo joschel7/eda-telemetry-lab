@@ -8,11 +8,14 @@ To deploy the lab using CX, follow these steps:
 
     Run the provided `init.sh` script to update your configuration files with the EDA IP address.
 
-2. **Deploy the topology:**
+2. **Deploy the telemetry stack:**
 
-    While the lab uses CX to simulate SR Linux nodes, the telemetry stack for convenience is deployed using Containerlab.
+    Deploy the monitoring components in your Kubernetes cluster using Helm:
 
-    Run `containerlab deploy -t ./cx/eda-st-cx.clab.yaml` to deploy the lab.
+    ```bash
+    helm install telemetry-stack ../charts/telemetry-stack \
+      --create-namespace -n eda-telemetry
+    ```
 
 3. **Bootstrap the Namespace in EDA:**
 

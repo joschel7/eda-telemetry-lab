@@ -28,10 +28,9 @@ The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry 
 There are two variants for deploying the lab:
 
 - **Using Containerlab**:
-    The simulated SR Linux nodes, client containers and the telemetry stack are deployed using Containerlab. This deployment variant requires a license for EDA, as the simulated SR Linux nodes are deployed outside of EDA.
-    On the positive side, using Containerlab allows for live traffic generation using iperf.
+    The simulated SR Linux nodes and client containers are deployed using Containerlab while the telemetry stack runs in Kubernetes via Helm. This deployment variant requires a license for EDA as the simulated SR Linux nodes are deployed outside of EDA. On the positive side, using Containerlab allows for live traffic generation using iperf.
 - **Using CX** (EDA Simulation Platform):
-    The simulated SR Linux nodes are spawned in EDA CX and thus do not require a license. The telemetry stack for convenience is deployed using Containerlab. This deployment variant does not require a license but does not support traffic generation with iperf.
+    The simulated SR Linux nodes are spawned in EDA CX and thus do not require a license. The telemetry stack is also deployed in Kubernetes using Helm. This deployment variant does not require a license but does not support traffic generation with iperf.
 
 This README focuses on the Containerlab deployment variant as it leverages iperf-generated traffic for demonstration purposes. See [cx/README.md](cx/README.md) for the CX deployment variant.
 
@@ -68,7 +67,14 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     Run `containerlab deploy` to deploy the lab.
 
-4. **Install the EDA Apps (Prometheus and Kafka):**
+4. **Deploy the telemetry stack with Helm:**
+
+    ```bash
+    helm install telemetry-stack ./charts/telemetry-stack \
+      --create-namespace -n eda-telemetry
+    ```
+
+5. **Install the EDA Apps (Prometheus and Kafka):**
 
     Run:
 
@@ -78,7 +84,7 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     **TIP:** Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
 
-5. **Integrate Containerlab with EDA:**
+6. **Integrate Containerlab with EDA:**
 
     Run:
 
@@ -94,7 +100,7 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 > [!IMPORTANT]
 > **--skip-edge-intfs** Is mandatory for this lab. It skips the integration of the edge interfaces. This is because we create lags via the manifests.
 
-6. **Deploy the Manifests:**
+7. **Deploy the Manifests:**
 
     Apply the manifests:
 
@@ -102,7 +108,7 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
     kubectl apply -f manifests
     ```
 
-7. **Enjoy Your Lab!**
+8. **Enjoy Your Lab!**
 
 > [!TIP]
 > **Shutdown interfaces via WebUI:** Client 1, exposes the port 8080 for the WebUI. You can use the WebUI to shutdown interfaces on the SR Linux nodes.
