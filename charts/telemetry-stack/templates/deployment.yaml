@@ -173,6 +173,20 @@ spec:
           configMap:
             name: promtail-config
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: promtail
+  labels:
+    app: telemetry-stack
+spec:
+  ports:
+    - port: 1514
+      targetPort: 1514
+      protocol: UDP
+  selector:
+    app: promtail
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
