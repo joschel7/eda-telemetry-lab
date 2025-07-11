@@ -14,19 +14,34 @@ spec:
       labels:
         app: prometheus
     spec:
+      securityContext:
+        fsGroup: 65534
+        runAsUser: 65534
+        runAsNonRoot: true
       containers:
         - name: prometheus
           image: quay.io/prometheus/prometheus:v2.54.1
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus
+            - --storage.tsdb.retention.time=7d
           volumeMounts:
             - name: config
               mountPath: /etc/prometheus
+            {{- if .Values.prometheus.persistence.enabled }}
+            - name: prometheus-storage
+              mountPath: /prometheus
+            {{- end }}
       volumes:
         - name: config
           configMap:
             name: prometheus-config
+        {{- if .Values.prometheus.persistence.enabled }}
+        - name: prometheus-storage
+          persistentVolumeClaim:
+            claimName: {{ include "telemetry-stack.fullname" . }}-prometheus
+        {{- end }}
 ---
 apiVersion: v1
 kind: Service
@@ -57,6 +72,10 @@ spec:
       labels:
         app: grafana
     spec:
+      securityContext:
+        fsGroup: 472
+        runAsUser: 472
+        runAsGroup: 472
       containers:
         - name: grafana
           image: grafana/grafana:11.2.0
@@ -82,10 +101,19 @@ spec:
             - name: grafana-config
               mountPath: /var/lib/grafana/dashboards/st.json
               subPath: st.json
+            {{- if .Values.grafana.persistence.enabled }}
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+            {{- end }}
       volumes:
         - name: grafana-config
           configMap:
             name: grafana-datasource
+        {{- if .Values.grafana.persistence.enabled }}
+        - name: grafana-storage
+          persistentVolumeClaim:
+            claimName: {{ include "telemetry-stack.fullname" . }}-grafana
+        {{- end }}
 ---
 apiVersion: v1
 kind: Service
