@@ -147,7 +147,7 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
   - **Prometheus Exporter:** EDA exports detailed telemetry metrics to Prometheus.
   - **Kafka Exporter:** Alarms and deviations are forwarded via EDA’s Kafka exporter, enabling proactive monitoring and alerting.
 - **Prometheus:**
-  Stores the telemetry data. The configuration (located in `configs/prometheus/prometheus.yml`) is updated during initialization.
+  Stores the telemetry data.
 - **Grafana:**
   Visualize metrics and dashboards at <http://grafana:3000>. For admin tasks, use admin/admin.
 
