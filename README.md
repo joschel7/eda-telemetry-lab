@@ -51,30 +51,36 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     You should see `Started` in the output.
 
-2. **Initialize the Lab Configuration:**
+2. **Deploy containerlab topology:**
+
+    Run `containerlab deploy` to deploy the lab.
+
+3. **Initialize and Deploy the Lab:**
 
     Run the provided `init.sh` which does the following:
 
     - ensures `uv` and `clab-connector` tools are installed
-    - retrieves the EDA IP and sets it in the `configs/prometheus/prometheus.yml` files.
-    - save EDA API address in a `.eda_api_address` file.
+    - installs the telemetry-stack helm chart in the `eda-telemetry` namespace
+    - waits for the promtail service to get an external IP and updates the syslog configuration
+    - retrieves the EDA API address and saves it to `.eda_api_address` file
 
     ```bash
     ./init.sh
     ```
 
-3. **Deploy containerlab topology:**
-
-    Run `containerlab deploy` to deploy the lab.
-
-4. **Deploy the telemetry stack with Helm:**
+    After the script completes, you'll need to start the Grafana port-forward manually:
 
     ```bash
-    helm install telemetry-stack ./charts/telemetry-stack \
-      --create-namespace -n eda-telemetry
+    kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0
     ```
 
-5. **Install the EDA Apps (Prometheus and Kafka):**
+    Or run it in the background:
+
+    ```bash
+    nohup kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0 >/dev/null 2>&1 &
+    ```
+
+4. **Install the EDA Apps (Prometheus and Kafka):**
 
     Run:
 
@@ -84,7 +90,7 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     **TIP:** Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
 
-6. **Integrate Containerlab with EDA:**
+5. **Integrate Containerlab with EDA:**
 
     Run:
 
@@ -100,15 +106,21 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 > [!IMPORTANT]
 > **--skip-edge-intfs** Is mandatory for this lab. It skips the integration of the edge interfaces. This is because we create lags via the manifests.
 
-7. **Deploy the Manifests:**
+6. **Deploy the Manifests:**
 
     Apply the manifests:
 
     ```bash
     kubectl apply -f manifests
     ```
+    or for cx
 
-8. **Enjoy Your Lab!**
+    ```bash
+    kubectl apply -f cx/manifests
+    ```
+
+
+7. **Enjoy Your Lab!**
 
 > [!TIP]
 > **Shutdown interfaces via WebUI:** Client 1, exposes the port 8080 for the WebUI. You can use the WebUI to shutdown interfaces on the SR Linux nodes.
