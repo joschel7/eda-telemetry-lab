@@ -41,7 +41,11 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
 [sim-false-doc]: https://docs.eda.dev/user-guide/containerlab-integration/#installing-eda
 
-1. **Ensure `kubectl` is installed and configured:**
+## Prerequisites
+
+1. **Helm:** This lab uses Helm for deploying the telemetry stack. Please ensure Helm is installed. You can install Helm by following the instructions at: <https://helm.sh/docs/intro/install/>
+
+2. **Ensure `kubectl` is installed and configured:**
     To test if `kubectl` is installed and configured, run:
 
     ```bash

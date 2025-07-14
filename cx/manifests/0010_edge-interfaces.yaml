@@ -9,7 +9,7 @@ items:
         eda.nokia.com/macvrf1001: 'true'
         eda.nokia.com/role: edge
       name: lag-l1-l2-eth-1-1-lag-1-local
-      namespace: clab-eda-st
+      namespace: eda-st
     spec:
       enabled: true
       encapType: dot1q
@@ -49,7 +49,7 @@ items:
         eda.nokia.com/macvrf1001: 'true'
         eda.nokia.com/role: edge
       name: lag-l1-l2-eth-1-2-lag-2-local
-      namespace: clab-eda-st
+      namespace: eda-st
     spec:
       enabled: true
       encapType: dot1q
@@ -89,7 +89,7 @@ items:
         eda.nokia.com/macvrf1001: 'true'
         eda.nokia.com/role: edge
       name: lag-l3-l4-eth-1-1-lag-3-local
-      namespace: clab-eda-st
+      namespace: eda-st
     spec:
       enabled: true
       encapType: dot1q
@@ -129,7 +129,7 @@ items:
         eda.nokia.com/macvrf1001: 'true'
         eda.nokia.com/role: edge
       name: lag-l3-l4-eth-1-2-lag-4-local
-      namespace: clab-eda-st
+      namespace: eda-st
     spec:
       enabled: true
       encapType: dot1q

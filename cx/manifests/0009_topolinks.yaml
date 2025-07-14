@@ -4,7 +4,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine1-e1-1-leaf1-e1-49
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -23,7 +23,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine2-e1-1-leaf1-e1-50
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -42,7 +42,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine1-e1-2-leaf2-e1-49
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -61,7 +61,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine2-e1-2-leaf2-e1-50
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -80,7 +80,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine1-e1-3-leaf3-e1-49
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -99,7 +99,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine2-e1-3-leaf3-e1-50
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -118,7 +118,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine1-e1-4-leaf4-e1-49
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -137,7 +137,7 @@ metadata:
   labels:
     eda.nokia.com/role: interSwitch
   name: spine2-e1-4-leaf4-e1-50
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -159,7 +159,7 @@ metadata:
     eda.nokia.com/macvrf1001: 'true'
     eda.nokia.com/role: edge
   name: l1-l2-eth-1-1-lag-1
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -184,7 +184,7 @@ metadata:
     eda.nokia.com/macvrf1001: 'true'
     eda.nokia.com/role: edge
   name: l1-l2-eth-1-2-lag-2
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -209,7 +209,7 @@ metadata:
     eda.nokia.com/macvrf1001: 'true'
     eda.nokia.com/role: edge
   name: l3-l4-eth-1-1-lag-3
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:
@@ -234,7 +234,7 @@ metadata:
     eda.nokia.com/macvrf1001: 'true'
     eda.nokia.com/role: edge
   name: l3-l4-eth-1-2-lag-4
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   links:
     - local:

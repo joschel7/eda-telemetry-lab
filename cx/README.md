@@ -22,7 +22,7 @@ To deploy the lab using CX, follow these steps:
     Execute:
 
     ```bash
-    kubectl exec -n eda-system $(kubectl get pods -n eda-system | grep eda-toolbox | awk '{print $1}') -- edactl namespace bootstrap clab-eda-st
+    kubectl exec -n eda-system $(kubectl get pods -n eda-system | grep eda-toolbox | awk '{print $1}') -- edactl namespace bootstrap eda-st
     ```
 
 4. **Install the EDA Apps (Prometheus and Kafka):**

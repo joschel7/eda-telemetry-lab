@@ -13,7 +13,7 @@ spec:
               "network-instance": "mgmt",
               "remote-server": [
                   {
-                      "host": "10.58.2.44",
+                      "host": "100.82.85.164",
                       "transport": "udp",
                       "remote-port": 1514,
                       "facility": [
