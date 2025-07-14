@@ -20,35 +20,35 @@ echo "Installing telemetry-stack helm chart..."
 helm install telemetry-stack ./charts/telemetry-stack \
   --create-namespace -n eda-telemetry
 
-# Wait for promtail service to be ready and get external IP
-echo "Waiting for promtail service to get external IP..."
+# Wait for alloy service to be ready and get external IP
+echo "Waiting for alloy service to get external IP..."
 echo "Note: First-time deployment may take several minutes while downloading container images."
-PROMTAIL_IP=""
+ALLOY_IP=""
 RETRY_COUNT=0
 MAX_RETRIES=60  # Increased from 30 to 60 for initial deployments
 
-# First, wait for the promtail pod to be ready
-echo "Checking promtail pod status..."
-kubectl wait --for=condition=ready pod -l app=promtail -n eda-telemetry --timeout=600s
+# First, wait for the alloy pod to be ready
+echo "Checking alloy pod status..."
+kubectl wait --for=condition=ready pod -l app=alloy -n eda-telemetry --timeout=600s
 
 # Now wait for the service to get an external IP
-while [ -z "$PROMTAIL_IP" ] && [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-    PROMTAIL_IP=$(kubectl get svc promtail -n eda-telemetry -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
-    if [ -z "$PROMTAIL_IP" ]; then
+while [ -z "$ALLOY_IP" ] && [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+    ALLOY_IP=$(kubectl get svc alloy -n eda-telemetry -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
+    if [ -z "$ALLOY_IP" ]; then
         echo "Waiting for external IP... (attempt $((RETRY_COUNT+1))/$MAX_RETRIES)"
         sleep 10
         RETRY_COUNT=$((RETRY_COUNT+1))
     fi
 done
 
-if [ -z "$PROMTAIL_IP" ]; then
-    echo "Error: Failed to get promtail external IP after $MAX_RETRIES attempts"
+if [ -z "$ALLOY_IP" ]; then
+    echo "Error: Failed to get alloy external IP after $MAX_RETRIES attempts"
     exit 1
 fi
 
-echo "Got promtail external IP: $PROMTAIL_IP"
+echo "Got alloy external IP: $ALLOY_IP"
 
-# Update syslog.yaml with promtail IP
+# Update syslog.yaml with alloy IP
 SYSLOG_CONFIG_FILE="manifests/0026_syslog.yaml"
 CX_SYSLOG_CONFIG_FILE="cx/manifests/0026_syslog.yaml"
 
@@ -58,13 +58,13 @@ if [[ ! -f "$SYSLOG_CONFIG_FILE" ]]; then
 fi
 
 # Replace the IP in the host field for main syslog config
-sed -i.bak -E "s/(\"host\": \")[^\"]+(\",)/\1${PROMTAIL_IP}\2/" "$SYSLOG_CONFIG_FILE"
-echo "Updated syslog host to '$PROMTAIL_IP' in $SYSLOG_CONFIG_FILE"
+sed -i.bak -E "s/(\"host\": \")[^\"]+(\",)/\1${ALLOY_IP}\2/" "$SYSLOG_CONFIG_FILE"
+echo "Updated syslog host to '$ALLOY_IP' in $SYSLOG_CONFIG_FILE"
 
 # Also update CX syslog config if it exists
 if [[ -f "$CX_SYSLOG_CONFIG_FILE" ]]; then
-    sed -i.bak -E "s/(\"host\": \")[^\"]+(\",)/\1${PROMTAIL_IP}\2/" "$CX_SYSLOG_CONFIG_FILE"
-    echo "Updated syslog host to '$PROMTAIL_IP' in $CX_SYSLOG_CONFIG_FILE"
+    sed -i.bak -E "s/(\"host\": \")[^\"]+(\",)/\1${ALLOY_IP}\2/" "$CX_SYSLOG_CONFIG_FILE"
+    echo "Updated syslog host to '$ALLOY_IP' in $CX_SYSLOG_CONFIG_FILE"
 fi
 
 # Fetch EDA ext domain name from engine config

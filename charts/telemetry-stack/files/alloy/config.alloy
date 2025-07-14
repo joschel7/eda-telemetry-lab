@@ -9,6 +9,12 @@ loki.write "alerts" {
   }
 }
 
+loki.write "syslog" {
+  endpoint {
+    url = "http://loki.eda-telemetry.svc:3100/loki/api/v1/push"
+  }
+}
+
 loki.source.kafka "alarms" {
   brokers    = ["kafka.eda-telemetry.svc:9092"]
   topics     = ["alarms"]
@@ -80,6 +86,74 @@ loki.process "deviations_mapper" {
   forward_to = [loki.write.alerts.receiver]
 }
 
+// Syslog configuration with relabeling to extract hostname
+loki.source.syslog "main" {
+  listener {
+    address  = "0.0.0.0:1514"
+    protocol = "udp"
+    idle_timeout = "5m"
+    label_structured_data = true
+    labels = { 
+      job = "syslog",
+    }
+  }
+  
+  relabel_rules = loki.relabel.syslog_relabel.rules
+  forward_to = [loki.process.syslog_processor.receiver]
+}
+
+// Relabel rules to extract syslog fields as proper labels
+loki.relabel "syslog_relabel" {
+  rule {
+    source_labels = ["__syslog_message_hostname"]
+    target_label  = "source"
+  }
+  
+  rule {
+    source_labels = ["__syslog_message_severity"]
+    target_label  = "severity"
+  }
+  
+  rule {
+    source_labels = ["__syslog_message_app_name"]
+    target_label  = "app_name"
+  }
+  
+  rule {
+    source_labels = ["__syslog_message_facility"]
+    target_label  = "facility"
+  }
+  
+  rule {
+    source_labels = ["__syslog_message_proc_id"]
+    target_label  = "proc_id"
+  }
+  
+  forward_to = []
+}
+
+loki.process "syslog_processor" {
+  // Parse SR Linux specific format from the message
+  stage.regex {
+    expression = "^\\s*(?P<application>\\w+)\\|(?P<pid>\\d+)\\|(?P<tid>\\d+)\\|(?P<seq>\\d+)\\|(?P<level>\\w+):\\s*(?P<message>.*)$"
+  }
+  
+  // Override with SR Linux specific values where they exist
+  stage.labels {
+    values = {
+      application = "application",
+      level       = "level",
+      procid      = "pid",
+    }
+  }
+  
+  // Output just the message part
+  stage.output {
+    source = "message"
+  }
+  
+  forward_to = [loki.write.syslog.receiver]
+}
 
 livedebugging {
   enabled = true

@@ -174,51 +174,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: promtail
-  labels:
-    app: telemetry-stack
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: promtail
-  template:
-    metadata:
-      labels:
-        app: promtail
-    spec:
-      containers:
-        - name: promtail
-          image: grafana/promtail:3.2.0
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
-          args:
-            - --config.file=/etc/promtail/promtail-config.yml
-          volumeMounts:
-            - name: promtail-config
-              mountPath: /etc/promtail
-      volumes:
-        - name: promtail-config
-          configMap:
-            name: promtail-config
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: promtail
-  labels:
-    app: telemetry-stack
-spec:
-  ports:
-    - port: 1514
-      targetPort: 1514
-      protocol: UDP
-  type: LoadBalancer
-  selector:
-    app: promtail
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: alloy
   labels:
     app: telemetry-stack
@@ -259,6 +214,12 @@ spec:
   ports:
     - port: 12345
       targetPort: 12345
+      name: http
+    - port: 1514
+      targetPort: 1514
+      protocol: UDP
+      name: syslog
+  type: LoadBalancer
   selector:
     app: alloy
 ---

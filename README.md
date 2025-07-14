@@ -5,13 +5,13 @@
 [discord-svg]: https://gitlab.com/rdodin/pics/-/wikis/uploads/b822984bc95d77ba92d50109c66c7afe/join-discord-btn.svg
 [discord-url]: https://eda.dev/discord
 
-The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry support integrated with [EDA (Event Driven Automation)](https://docs.eda.dev/). In this lab, [Nokia SR Linux](https://learn.srlinux.dev/) nodes are dynamically configured via EDA and integrated into a modern telemetry and logging stack that includes Prometheus, Grafana, Promtail, Loki, Alloy and Kafka exporters for alarms and deviations.
+The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry support integrated with [EDA (Event Driven Automation)](https://docs.eda.dev/). In this lab, [Nokia SR Linux](https://learn.srlinux.dev/) nodes are dynamically configured via EDA and integrated into a modern telemetry and logging stack that includes Prometheus, Grafana, Loki, Alloy and Kafka exporters for alarms and deviations.
 
 <https://github.com/user-attachments/assets/38efb03a-c4aa-4a52-820a-b96d8a7005ea>
 
 - **EDA-Driven Configuration:** Automate SR Linux configuration and telemetry subscriptions with EDA.
 - **Modern Telemetry Stack:** Export telemetry data using EDA’s Prometheus exporter and monitor alarms/deviations via the Kafka exporter.
-- **Enhanced Logging:** Capture and aggregate system logs using Promtail, Alloy and Loki.
+- **Enhanced Logging:** Capture and aggregate system logs using Alloy and Loki.
 - **Deployment Options:** Deploy with either Containerlab (clab) for live traffic or CX (Simulation Platform) for license-flexible testing.
 - **Traffic:** Generate and control iperf3 traffic to see dynamic network metrics in action.
 
@@ -65,7 +65,7 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     - ensures `uv` and `clab-connector` tools are installed
     - installs the telemetry-stack helm chart in the `eda-telemetry` namespace
-    - waits for the promtail service to get an external IP and updates the syslog configuration
+    - waits for the alloy service to get an external IP and updates the syslog configuration
     - retrieves the EDA API address and saves it to `.eda_api_address` file
 
     ```bash
@@ -158,10 +158,8 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 ### Logging
 
 - **Alloy & Loki:**
-  Alloy processes Kafka data and sends it to Loki for storage.
+  Alloy collects SR Linux syslogs and processes Kafka data, then sends it to Loki for storage.
   Alloy has a web interface at <http://alloy:12345>.
-- **Promtail & Loki:**
-  Collect and aggregate SR Linux syslogs (e.g., BGP events, interface state changes). Logs are accessible and filterable via Grafana.
 - **Prometheus UI:**
   Check out real-time graphs at <http://prometheus:9090/graph>.
 
