@@ -2,7 +2,7 @@ apiVersion: bootstrap.eda.nokia.com/v1alpha1
 kind: Init
 metadata:
   name: init-base
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   commitSave: true
   mgmt:

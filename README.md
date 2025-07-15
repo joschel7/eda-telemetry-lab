@@ -5,13 +5,13 @@
 [discord-svg]: https://gitlab.com/rdodin/pics/-/wikis/uploads/b822984bc95d77ba92d50109c66c7afe/join-discord-btn.svg
 [discord-url]: https://eda.dev/discord
 
-The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry support integrated with [EDA (Event Driven Automation)](https://docs.eda.dev/). In this lab, [Nokia SR Linux](https://learn.srlinux.dev/) nodes are dynamically configured via EDA and integrated into a modern telemetry and logging stack that includes Prometheus, Grafana, Promtail, Loki, Alloy and Kafka exporters for alarms and deviations.
+The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry support integrated with [EDA (Event Driven Automation)](https://docs.eda.dev/). In this lab, [Nokia SR Linux](https://learn.srlinux.dev/) nodes are dynamically configured via EDA and integrated into a modern telemetry and logging stack that includes Prometheus, Grafana, Loki, Alloy and Kafka exporters for alarms and deviations.
 
 <https://github.com/user-attachments/assets/38efb03a-c4aa-4a52-820a-b96d8a7005ea>
 
 - **EDA-Driven Configuration:** Automate SR Linux configuration and telemetry subscriptions with EDA.
 - **Modern Telemetry Stack:** Export telemetry data using EDA’s Prometheus exporter and monitor alarms/deviations via the Kafka exporter.
-- **Enhanced Logging:** Capture and aggregate system logs using Promtail, Alloy and Loki.
+- **Enhanced Logging:** Capture and aggregate system logs using Alloy and Loki.
 - **Deployment Options:** Deploy with either Containerlab (clab) for live traffic or CX (Simulation Platform) for license-flexible testing.
 - **Traffic:** Generate and control iperf3 traffic to see dynamic network metrics in action.
 
@@ -28,10 +28,9 @@ The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry 
 There are two variants for deploying the lab:
 
 - **Using Containerlab**:
-    The simulated SR Linux nodes, client containers and the telemetry stack are deployed using Containerlab. This deployment variant requires a license for EDA, as the simulated SR Linux nodes are deployed outside of EDA.
-    On the positive side, using Containerlab allows for live traffic generation using iperf.
+    The simulated SR Linux nodes and client containers are deployed using Containerlab while the telemetry stack runs in Kubernetes via Helm. This deployment variant requires a license for EDA as the simulated SR Linux nodes are deployed outside of EDA. On the positive side, using Containerlab allows for live traffic generation using iperf.
 - **Using CX** (EDA Simulation Platform):
-    The simulated SR Linux nodes are spawned in EDA CX and thus do not require a license. The telemetry stack for convenience is deployed using Containerlab. This deployment variant does not require a license but does not support traffic generation with iperf.
+    The simulated SR Linux nodes are spawned in EDA CX and thus do not require a license. The telemetry stack is also deployed in Kubernetes using Helm. This deployment variant does not require a license but does not support traffic generation with iperf.
 
 This README focuses on the Containerlab deployment variant as it leverages iperf-generated traffic for demonstration purposes. See [cx/README.md](cx/README.md) for the CX deployment variant.
 
@@ -42,7 +41,11 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
 [sim-false-doc]: https://docs.eda.dev/user-guide/containerlab-integration/#installing-eda
 
-1. **Ensure `kubectl` is installed and configured:**
+## Prerequisites
+
+1. **Helm:** This lab uses Helm for deploying the telemetry stack. Please ensure Helm is installed. You can install Helm by following the instructions at: <https://helm.sh/docs/intro/install/>
+
+2. **Ensure `kubectl` is installed and configured:**
     To test if `kubectl` is installed and configured, run:
 
     ```bash
@@ -52,21 +55,34 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
     You should see `Started` in the output.
 
-2. **Initialize the Lab Configuration:**
+2. **Deploy containerlab topology:**
+
+    Run `containerlab deploy` to deploy the lab.
+
+3. **Initialize and Deploy the Lab:**
 
     Run the provided `init.sh` which does the following:
 
     - ensures `uv` and `clab-connector` tools are installed
-    - retrieves the EDA IP and sets it in the `configs/prometheus/prometheus.yml` files.
-    - save EDA API address in a `.eda_api_address` file.
+    - installs the telemetry-stack helm chart in the `eda-telemetry` namespace
+    - waits for the alloy service to get an external IP and updates the syslog configuration
+    - retrieves the EDA API address and saves it to `.eda_api_address` file
 
     ```bash
     ./init.sh
     ```
 
-3. **Deploy containerlab topology:**
+    After the script completes, you'll need to start the Grafana port-forward manually:
 
-    Run `containerlab deploy` to deploy the lab.
+    ```bash
+    kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0
+    ```
+
+    Or run it in the background:
+
+    ```bash
+    nohup kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0 >/dev/null 2>&1 &
+    ```
 
 4. **Install the EDA Apps (Prometheus and Kafka):**
 
@@ -101,6 +117,12 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
     ```bash
     kubectl apply -f manifests
     ```
+    or for cx
+
+    ```bash
+    kubectl apply -f cx/manifests
+    ```
+
 
 7. **Enjoy Your Lab!**
 
@@ -129,17 +151,15 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
   - **Prometheus Exporter:** EDA exports detailed telemetry metrics to Prometheus.
   - **Kafka Exporter:** Alarms and deviations are forwarded via EDA’s Kafka exporter, enabling proactive monitoring and alerting.
 - **Prometheus:**
-  Stores the telemetry data. The configuration (located in `configs/prometheus/prometheus.yml`) is updated during initialization.
+  Stores the telemetry data.
 - **Grafana:**
   Visualize metrics and dashboards at <http://grafana:3000>. For admin tasks, use admin/admin.
 
 ### Logging
 
 - **Alloy & Loki:**
-  Alloy processes Kafka data and sends it to Loki for storage.
+  Alloy collects SR Linux syslogs and processes Kafka data, then sends it to Loki for storage.
   Alloy has a web interface at <http://alloy:12345>.
-- **Promtail & Loki:**
-  Collect and aggregate SR Linux syslogs (e.g., BGP events, interface state changes). Logs are accessible and filterable via Grafana.
 - **Prometheus UI:**
   Check out real-time graphs at <http://prometheus:9090/graph>.
 

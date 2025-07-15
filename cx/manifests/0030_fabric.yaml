@@ -4,7 +4,7 @@ items:
   kind: Fabric
   metadata:
     name: fabric
-    namespace: clab-eda-st
+    namespace: eda-st
   spec:
     interSwitchLinks:
       linkSelector:

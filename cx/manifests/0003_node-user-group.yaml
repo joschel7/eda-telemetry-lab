@@ -2,7 +2,7 @@ apiVersion: aaa.eda.nokia.com/v1alpha1
 kind: NodeGroup
 metadata:
   name: sudo
-  namespace: clab-eda-st
+  namespace: eda-st
 spec:
   services:
     - GNMI
