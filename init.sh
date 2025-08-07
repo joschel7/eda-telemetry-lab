@@ -21,7 +21,7 @@ echo "Installing telemetry-stack helm chart..."
 proxy_var="${https_proxy:-$HTTPS_PROXY}"
 if [[ -n "$proxy_var" ]]; then
     echo "Using proxy for grafana deployment: $proxy_var"
-    noproxy="localhost,127.0.0.1,.local,.internal,.svc"
+    noproxy="localhost\,127.0.0.1\,.local\,.internal\,.svc"
 
     helm install telemetry-stack ./charts/telemetry-stack \
     --set proxy.https="$proxy_var" \
