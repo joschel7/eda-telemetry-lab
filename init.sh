@@ -24,8 +24,8 @@ if [[ -n "$proxy_var" ]]; then
     noproxy="localhost\,127.0.0.1\,.local\,.internal\,.svc"
 
     helm install telemetry-stack ./charts/telemetry-stack \
-    --set proxy.https="$proxy_var" \
-    --set proxy.noProxy="$noproxy" \
+    --set https_proxy="$proxy_var" \
+    --set no_proxy="$noproxy" \
     --create-namespace -n eda-telemetry
 else
     helm install telemetry-stack ./charts/telemetry-stack \

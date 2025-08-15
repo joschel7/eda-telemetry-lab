@@ -82,13 +82,13 @@ spec:
           image: grafana/grafana:12.0.2
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           env:
-            {{- if .Values.proxy.https }}
+            {{- if .Values.https_proxy }}
             - name: HTTPS_PROXY
-              value: "{{ .Values.proxy.https }}"
+              value: "{{ .Values.https_proxy }}"
             {{- end }}
-            {{- if .Values.proxy.noProxy }}
+            {{- if .Values.no_proxy }}
             - name: NO_PROXY
-              value: "{{ .Values.proxy.noProxy }}"
+              value: "{{ .Values.no_proxy }}"
             {{- end }}
             - name: GF_INSTALL_PLUGINS
               value: "andrewbmchugh-flow-panel, volkovlabs-variable-panel"
