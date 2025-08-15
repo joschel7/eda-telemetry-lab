@@ -7,13 +7,13 @@ metadata:
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: srlinux-ghcr-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -24,13 +24,13 @@ metadata:
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: srlinux-ghcr-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -41,13 +41,13 @@ metadata:
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: srlinux-ghcr-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -59,13 +59,13 @@ metadata:
     containerlab: managed
   namespace: eda-st
 spec:
-  nodeProfile: srlinux-ghcr-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -76,13 +76,13 @@ metadata:
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: srlinux-ghcr-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -93,10 +93,10 @@ metadata:
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: srlinux-ghcr-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
   npp:
     mode: normal
   onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
