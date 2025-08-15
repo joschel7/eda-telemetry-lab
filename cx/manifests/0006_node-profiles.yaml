@@ -1,33 +1,29 @@
----
 apiVersion: core.eda.nokia.com/v1
 kind: NodeProfile
 metadata:
-  name: eda-st-srlinux-24.10.1
+  name: srlinux-ghcr-24.10.1
   namespace: eda-st
+  labels: {}
+  annotations: {}
 spec:
-  port: 57400
   annotate: false
   containerImage: ghcr.io/nokia/srlinux:24.10.1-492
   dhcp:
     dhcp4Options:
-      - option: 6-DomainNameServer
-        value:
-          - 128.251.10.125
+    - option: 6-DomainNameServer
+      value:
+      - 128.251.10.125
     managementPoolv4: ipv4-mgmt-pool
-    dhcp6Options: []
   imagePullSecret: core
   images:
-    - image: eda-system/srlimages/srlinux-24.10.1-492
-      imageMd5: eda-system/srlimages/srlinux-24.10.1-492-md5
+  - image: eda-system/srlimages/srlinux-24.10.1-492
+    imageMd5: eda-system/srlimages/srlinux-24.10.1-492-md5
   license: cx-srl-24-10-1-ghcr-license
+  llmDb: https://eda-asvr.eda-system.svc/eda-system/llm-dbs/llm-db-srlinux-ghcr-24.10.1/llm-embeddings-srl-24-10-1.tar.gz
   nodeUser: admin
   operatingSystem: srl
+  port: 57400
   version: 24.10.1
   versionMatch: v24\.10\.1.*
   versionPath: .system.information.version
-  yang: >-
-    https://eda-asvr.eda-system.svc/eda-system/schemaprofiles/srlinux-ghcr-24.10.1/srlinux-24.10.1.zip
-  onboardingPassword: ''
-  onboardingUsername: ''
-  platformPath: ''
-  serialNumberPath: ''
+  yang: https://eda-asvr.eda-system.svc/eda-system/schemaprofiles/srlinux-ghcr-24.10.1/srlinux-24.10.1.zip

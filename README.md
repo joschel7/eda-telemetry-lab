@@ -117,7 +117,7 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
     ```bash
     kubectl apply -f manifests
     ```
-    or for cx
+    or for cx ( simulate true )
 
     ```bash
     kubectl apply -f cx/manifests

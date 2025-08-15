@@ -4,7 +4,6 @@ metadata:
   name: init-base
   namespace: eda-st
 spec:
-  commitSave: true
   mgmt:
     ipv4DHCP: true
     ipv6DHCP: true
