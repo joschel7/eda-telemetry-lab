@@ -4,15 +4,16 @@ metadata:
   name: leaf1
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: eda-st
-    eda-connector.nokia.com/role: eda-st-leaf
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: eda-st-srlinux-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
+  npp:
+    mode: normal
+  onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -20,15 +21,16 @@ metadata:
   name: leaf2
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: eda-st
-    eda-connector.nokia.com/role: eda-st-leaf
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: eda-st-srlinux-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
+  npp:
+    mode: normal
+  onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -36,15 +38,16 @@ metadata:
   name: leaf3
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: eda-st
-    eda-connector.nokia.com/role: eda-st-leaf
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: eda-st-srlinux-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
+  npp:
+    mode: normal
+  onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -52,16 +55,17 @@ metadata:
   name: leaf4
   labels:
     eda.nokia.com/role: leaf
-    eda-connector.nokia.com/topology: eda-st
-    eda-connector.nokia.com/role: eda-st-leaf
     eda.nokia.com/security-profile: managed
     containerlab: managed
   namespace: eda-st
 spec:
-  nodeProfile: eda-st-srlinux-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
+  npp:
+    mode: normal
+  onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -69,15 +73,16 @@ metadata:
   name: spine1
   labels:
     eda.nokia.com/role: spine
-    eda-connector.nokia.com/topology: eda-st
-    eda-connector.nokia.com/role: eda-st-spine
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: eda-st-srlinux-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
+  npp:
+    mode: normal
+  onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2
 ---
 apiVersion: core.eda.nokia.com/v1
 kind: TopoNode
@@ -85,12 +90,13 @@ metadata:
   name: spine2
   labels:
     eda.nokia.com/role: spine
-    eda-connector.nokia.com/topology: eda-st
-    eda-connector.nokia.com/role: eda-st-spine
     eda.nokia.com/security-profile: managed
   namespace: eda-st
 spec:
-  nodeProfile: eda-st-srlinux-24.10.1
+  nodeProfile: srlinux-ghcr-25.3.2
+  npp:
+    mode: normal
+  onBoarded: true
   operatingSystem: srl
   platform: 7220 IXR-D2L
-  version: 24.10.1
+  version: 25.3.2

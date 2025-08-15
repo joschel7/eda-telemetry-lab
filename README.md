@@ -25,117 +25,171 @@ The **EDA Telemetry Lab** demonstrates how to leverage full 100% YANG telemetry 
 
 ## Deployment Variants
 
-There are two variants for deploying the lab:
+This lab supports two deployment methods, each with distinct advantages:
 
-- **Using Containerlab**:
-    The simulated SR Linux nodes and client containers are deployed using Containerlab while the telemetry stack runs in Kubernetes via Helm. This deployment variant requires a license for EDA as the simulated SR Linux nodes are deployed outside of EDA. On the positive side, using Containerlab allows for live traffic generation using iperf.
-- **Using CX** (EDA Simulation Platform):
-    The simulated SR Linux nodes are spawned in EDA CX and thus do not require a license. The telemetry stack is also deployed in Kubernetes using Helm. This deployment variant does not require a license but does not support traffic generation with iperf.
+### 1. Containerlab Deployment (Simulate=False)
+**Best for:** Full-featured testing with live traffic generation
 
-This README focuses on the Containerlab deployment variant as it leverages iperf-generated traffic for demonstration purposes. See [cx/README.md](cx/README.md) for the CX deployment variant.
+- **EDA Mode:** `Simulate=False` - integrates with external Containerlab nodes
+- **Architecture:** SR Linux nodes and client containers run via Containerlab, telemetry stack runs in Kubernetes
+- **License:** Requires valid EDA hardware license (version 25.4+)
+- **Traffic Generation:** ✅ Full iperf3 support for realistic network testing
+- **Node Prefix:** `clab-eda-st-*` (e.g., `clab-eda-st-leaf1`)
+- **Use Case:** Production-like testing, traffic analysis
+
+### 2. CX Deployment (Simulate=True)
+**Best for:** License-free learning and development
+
+- **EDA Mode:** `Simulate=True` - uses EDA's built-in simulation platform
+- **Architecture:** SR Linux nodes spawn directly in EDA CX, telemetry stack runs in Kubernetes
+- **License:** ❌ No license required
+- **Traffic Generation:** ⚠️ Limited (no iperf3 support)
+- **Node Prefix:** `eda-st-*` (e.g., `eda-st-leaf1`)
+- **Use Case:** Learning EDA, testing configurations, development environments
+
+
+## Requirements
 
 > [!IMPORTANT]
-> **EDA Installation Mode:** This lab requires EDA to be installed in the [`Simulate=False`][sim-false-doc] mode. Ensure that your EDA deployment is configured accordingly.
-> **EDA Version:** This lab is designed for EDA version 25.4. Ensure you are using this version or later.
-> **Hardware License:** A valid `hardware license` for EDA version 25.4 is mandatory for using this lab with Containerlab.
+> **EDA Version:** 25.4 or later required
+> 
+> **For Containerlab:** EDA must be installed with `Simulate=False` mode ([see docs][sim-false-doc])
+> 
+> **License:** Hardware license required for Containerlab deployment only (CX is license-free)
 
 [sim-false-doc]: https://docs.eda.dev/user-guide/containerlab-integration/#installing-eda
 
 ## Prerequisites
 
-1. **Helm:** This lab uses Helm for deploying the telemetry stack. Please ensure Helm is installed. You can install Helm by following the instructions at: <https://helm.sh/docs/intro/install/>
+### Common Requirements
 
-2. **Ensure `kubectl` is installed and configured:**
-    To test if `kubectl` is installed and configured, run:
-
+1. **Kubernetes with EDA installed:** Check your EDA installation mode matches your deployment choice
+2. **Helm:** Install from <https://helm.sh/docs/intro/install/>
+3. **kubectl:** Verify installation with:
     ```bash
     kubectl -n eda-system get engineconfig engine-config \
     -o jsonpath='{.status.run-status}{"\n"}'
     ```
+    Expected output: `Started`
 
-    You should see `Started` in the output.
+### Deployment Instructions
 
-2. **Deploy containerlab topology:**
+Choose your deployment method below:
 
-    Run `containerlab deploy` to deploy the lab.
+<details>
+<summary><b>📦 Option A: Containerlab Deployment</b> (Requires EDA with Simulate=False)</summary>
 
-3. **Initialize and Deploy the Lab:**
+#### Step 1: Deploy Containerlab Topology
+```bash
+containerlab deploy -t eda-st.clab.yaml
+```
 
-    Run the provided `init.sh` which does the following:
+#### Step 2: Initialize the Lab
+The `init.sh` script automatically:
+- Installs required tools (`uv`, `clab-connector`)
+- Deploys the telemetry stack via Helm
+- Configures syslog integration
+- Saves EDA API address
 
-    - ensures `uv` and `clab-connector` tools are installed
-    - installs the telemetry-stack helm chart in the `eda-telemetry` namespace
-    - waits for the alloy service to get an external IP and updates the syslog configuration
-    - retrieves the EDA API address and saves it to `.eda_api_address` file
+```bash
+./init.sh
+```
 
-    ```bash
-    ./init.sh
-    ```
+#### Step 3: Start Grafana Port-Forward
+```bash
+# Foreground (recommended for first-time setup)
+kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0
 
-    After the script completes, you'll need to start the Grafana port-forward manually:
+# Or background
+nohup kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0 >/dev/null 2>&1 &
+```
 
-    ```bash
-    kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0
-    ```
+#### Step 4: Install EDA Apps
+```bash
+kubectl apply -f manifests/0000_apps.yaml
+```
+Wait for apps to be ready in the EDA UI (this may take a few minutes).
 
-    Or run it in the background:
-
-    ```bash
-    nohup kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0 >/dev/null 2>&1 &
-    ```
-
-4. **Install the EDA Apps (Prometheus and Kafka):**
-
-    Run:
-
-    ```bash
-    kubectl apply -f manifests/0000_apps.yaml
-    ```
-
-    **TIP:** Depending on your setup this can take couple of seconds/minutes. Please check in the EDA UI if the apps are installed.
-
-5. **Integrate Containerlab with EDA:**
-
-    Run:
-
-    ```bash
-    clab-connector integrate \
-      --topology-data clab-eda-st/topology-data.json \
-      --eda-url "https://$(cat .eda_api_address)" \
-      --skip-edge-intfs
-    ```
-
-    **TIP:** Check [Clab Connector](https://github.com/eda-labs/clab-connector) docs for more details on the clab-connector options.
+#### Step 5: Integrate Containerlab with EDA
+```bash
+clab-connector integrate \
+  --topology-data clab-eda-st/topology-data.json \
+  --eda-url "https://$(cat .eda_api_address)" \
+  --skip-edge-intfs
+```
 
 > [!IMPORTANT]
-> **--skip-edge-intfs** Is mandatory for this lab. It skips the integration of the edge interfaces. This is because we create lags via the manifests.
+> The `--skip-edge-intfs` flag is mandatory as LAG interfaces are created via manifests.
 
-6. **Deploy the Manifests:**
+#### Step 6: Deploy Configuration Manifests
+```bash
+kubectl apply -f manifests
+```
 
-    Apply the manifests:
+</details>
 
-    ```bash
-    kubectl apply -f manifests
-    ```
-    or for cx
+<details>
+<summary><b>🚀 Option B: CX Deployment</b> (Requires EDA with Simulate=True)</summary>
 
-    ```bash
-    kubectl apply -f cx/manifests
-    ```
+#### Step 1: Initialize the Lab
+The `init.sh` script automatically:
+- Detects CX installation
+- Deploys the telemetry stack
+- Runs namespace bootstrap for CX
+- Configures node prefixes
 
+```bash
+./init.sh
+```
 
-7. **Enjoy Your Lab!**
+The script will automatically run `edactl namespace bootstrap eda-st` for CX deployments.
 
-> [!TIP]
-> **Shutdown interfaces via WebUI:** Client 1, exposes the port 8080 for the WebUI. You can use the WebUI to shutdown interfaces on the SR Linux nodes.
+#### Step 2: Start Grafana Port-Forward
+```bash
+kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0
+```
+
+#### Step 3: Install EDA Apps
+```bash
+kubectl apply -f manifests/0000_apps.yaml
+```
+
+#### Step 4: Deploy CX-Specific Manifests
+```bash
+kubectl apply -f cx/manifests
+```
+
+> [!NOTE]
+> CX deployment creates SR Linux nodes directly in EDA, so no Containerlab integration is needed.
+
+</details>
+
+### Verify Deployment
+
+After completing either deployment:
+
+1. **Access Grafana:** Navigate to <http://localhost:3000> (admin/admin)
+2. **Check EDA UI:** Verify all nodes and apps are operational
+3. **Test connectivity:** SSH to nodes using their prefixes:
+   - Containerlab: `ssh admin@clab-eda-st-leaf1`
 
 ## Accessing Network Elements
 
-- **SR Linux Nodes:**
-  Access these devices via SSH using the management IP addresses or hostnames (e.g., `ssh clab-eda-st-leaf2`).
+### SR Linux Nodes
+Access via SSH using the appropriate prefix for your deployment:
 
-- **Linux Clients:**
-  Access client-emulating container via SSH: e.g. `ssh user@clab-eda-st-server3` (password: `multit00l`).
+| Deployment | Node Access Example | Management Network |
+|------------|-------------------|-------------------|
+| Containerlab | `ssh admin@clab-eda-st-leaf1` | 10.58.2.0/24 |
+| CX | `ssh admin@eda-st-leaf1` | Auto-assigned |
+
+### Linux Clients (Containerlab only)
+- **SSH Access:** `ssh user@clab-eda-st-server1` (password: `multit00l`)
+- **WebUI:** <http://localhost:8080> (exposed from server1)
+  - Use the WebUI to simulate network failures by shutting down interfaces
+
+> [!TIP]
+> The WebUI on port 8080 allows you to interactively shutdown SR Linux interfaces to test network resilience and observe telemetry changes in real-time.
 
 ## Telemetry & Logging Stack
 
@@ -165,66 +219,149 @@ This README focuses on the Containerlab deployment variant as it leverages iperf
 
 ## Traffic Generation & Control
 
-The lab includes a traffic script (named **traffic.sh**) that launches bidirectional iperf3 tests between designated clients.
+> [!NOTE]
+> Traffic generation is only available in **Containerlab deployments**. CX deployments do not support iperf3.
 
-**Test Pairs Configured:**
+### Traffic Script Overview
 
-- **Server4 to Server1:**
-  - From server4 (`clab-eda-st-server4`) targeting server1’s IP `10.10.10.1` on port **5201**
-  - From server4 targeting server1’s VLAN interface `10.20.1.1` on port **5202**
+The `traffic.sh` script orchestrates bidirectional iperf3 tests between server containers to generate realistic network traffic for telemetry observation.
 
-- **Server3 to Server2:**
-  - From server3 (`clab-eda-st-server3`) targeting server2’s IP `10.10.10.2` on port **5201**
-  - From server3 targeting server2’s VLAN interface `10.20.2.2` on port **5202**
 
-**Default Test Settings:**
+### Traffic Parameters
 
-- **Duration:** 10000 seconds
-- **Report Interval:** 1 second
-- **Parallel Streams:** 10
-- **Bandwidth:** 120K
-- **MSS:** 1400
+| Parameter | Default Value | Environment Variable |
+|-----------|--------------|---------------------|
+| Duration | 10000 seconds | `DURATION` |
+| Bandwidth | 120K | - |
+| Parallel Streams | 10 | - |
+| MSS | 1400 | - |
+| Report Interval | 1 second | - |
 
-**Usage Examples:**
+### Usage Examples
 
-- **Start Traffic:**
-    To launch tests from a specific client or from both clients, run:
+```bash
+# Start all traffic flows
+./traffic.sh start all
 
-    ```bash
-    ./traffic.sh start server3
-    ./traffic.sh start server4
-    ./traffic.sh start all
-    ```
+# Start specific server traffic
+./traffic.sh start server3
+./traffic.sh start server4
 
-- **Stop Traffic:**
-  To stop tests on a specific client or on all clients, run:
+# Stop all traffic
+./traffic.sh stop all
 
-    ```bash
-    ./traffic.sh stop server3
-    ./traffic.sh stop server4
-    ./traffic.sh stop all
-    ```
+# Custom duration (60 seconds)
+DURATION=60 ./traffic.sh start all
+```
+
+> [!TIP]
+> Monitor traffic impact in real-time through Grafana dashboards while tests are running.
 
 ## EDA Configuration
 
-The lab includes several manifest files that define the configuration of EDA apps and the network fabric:
+### Manifest Structure
 
-- **Apps Installation (0000_apps.yaml):** Installs the Prometheus exporter (prom-exporter v2.0.0) and the Kafka exporter (kafka-exporter v2.0.1).
-- **Interfaces (0009_interfaces.yaml):** Configure LAG interfaces on SR Linux leaf switches.
-- **TopoLinks (0010_topolinks.yaml):** Define LAG topology links hanging off of leaf switches towards the servers.
-- **Prometheus Exporters (0020_prom_exporters.yaml):** Prometheus Exporter configuration to stream telemetry metrics (CPU, memory, interface status, routes, etc.).
-- **Kafka Exporter (0021_kafka_exporter.yaml):** Kafka Producer configuration to stream alarms and deviations.
-- **JSON-RPC server config (0025_json-rpc.yaml):** Configlet with the JSON-RPC server configuration to enable port shutdown automation.
-- **Syslog (0026_syslog.yaml):** Set up syslog forwarding to a centralized server.
-- **Fabric Topology (0030_fabric.yaml):** The Clos-based fabric configuration with eBPG/iBGP underlay/overlay.
-- **Virtual Networks (0040_ipvrf2001.yaml and 0041_macvrf1001.yaml):** Virtual networks configuration to support IP VRF and MAC VRF services.
+The lab uses Kubernetes manifests to configure EDA and the network fabric. The manifests differ between deployment types:
 
-## Conclusion
+#### Containerlab Manifests (`/manifests/`)
 
-The **EDA Telemetry Lab** offers a modern, automated approach to network telemetry and logging by integrating SR Linux with EDA. With fully automated configuration, a powerful monitoring stack leveraging EDA’s Prometheus and Kafka exporters, and flexible deployment options, this lab is an ideal starting point for exploring event-driven network automation.
+| File | Purpose | Key Components |
+|------|---------|----------------|
+| `0000_apps.yaml` | EDA Apps | Prometheus exporter v2.0.0, Kafka exporter v2.0.1 |
+| `0009_interfaces.yaml` | LAG Configuration | LAG interfaces on leaf switches |
+| `0010_topolinks.yaml` | Topology Links | LAG links between leaves and servers |
+| `0020_prom_exporters.yaml` | Telemetry Export | CPU, memory, interface, route metrics |
+| `0021_kafka_exporter.yaml` | Event Streaming | Alarms and deviation notifications |
+| `0025_json-rpc.yaml` | Automation | JSON-RPC for interface shutdown control |
+| `0026_syslog.yaml` | Logging | Centralized syslog configuration |
+| `0030_fabric.yaml` | Network Fabric | Clos topology with eBGP/iBGP |
+| `0040_ipvrf2001.yaml` | L3 Services | IP VRF configuration |
+| `0041_macvrf1001.yaml` | L2 Services | MAC VRF configuration |
 
-Happy automating and exploring your network!
+#### CX Manifests (`/cx/manifests/`)
+
+Additional CX-specific manifests include:
+
+| File | Purpose | Description |
+|------|---------|-------------|
+| `0001_init.yaml` | Namespace Init | Bootstrap configuration for eda-st namespace |
+| `0003_node-user-group.yaml` | User Management | Node user group definitions |
+| `0005_node-user.yaml` | User Configuration | Node user account setup |
+| `0006_node-profiles.yaml` | Node Profiles | SR Linux node profile definitions |
+| `0007_toponodes.yaml` | Node Creation | SR Linux node instantiation in CX |
+| `0008_topolink-interfaces.yaml` | Interface Config | Interface definitions for CX nodes |
+| `0009_topolinks.yaml` | Topology Links | Inter-node connectivity |
+| `0010_edge-interfaces.yaml` | Edge Config | Edge interface configuration |
+
+> [!NOTE]
+> CX manifests include additional resources for creating and managing simulated nodes directly within EDA.
+
+## Troubleshooting
+
+### Common Issues
+
+<details>
+<summary><b>Pods stuck in pending state</b></summary>
+
+Check if images are still downloading:
+```bash
+kubectl get pods -n eda-telemetry -o wide
+kubectl describe pod <pod-name> -n eda-telemetry
+```
+</details>
+
+<details>
+<summary><b>Alloy service no external IP</b></summary>
+
+Verify MetalLB or load balancer configuration:
+```bash
+kubectl get svc -n eda-telemetry
+kubectl logs -n metallb-system -l app=metallb
+```
+</details>
+
+<details>
+<summary><b>CX namespace bootstrap fails</b></summary>
+
+Manually run the bootstrap:
+```bash
+kubectl -n eda-system exec -it $(kubectl -n eda-system get pods \
+  -l eda.nokia.com/app=eda-toolbox -o jsonpath="{.items[0].metadata.name}") \
+  -- edactl namespace bootstrap eda-st
+```
+</details>
+
+<details>
+<summary><b>Traffic script fails</b></summary>
+
+Ensure containers are running (Containerlab only):
+```bash
+sudo docker ps | grep eda-st
+containerlab inspect -t eda-st.clab.yaml
+```
+</details>
+
+### Quick Cleanup
+
+```bash
+# Containerlab deployment
+containerlab destroy -t eda-st.clab.yaml
+kubectl delete -f manifests/
+helm uninstall telemetry-stack -n eda-telemetry
+
+# CX deployment
+kubectl delete -f cx/manifests/
+kubectl delete namespace eda-st
+helm uninstall telemetry-stack -n eda-telemetry
+```
+
+## Resources
+
+- **Documentation:** [EDA Docs](https://docs.eda.dev/)
+- **SR Linux Learn:** [SR Linux Learning Platform](https://learn.srlinux.dev/)
+- **Containerlab:** [Containerlab Documentation](https://containerlab.dev/)
+- **Support:** [EDA Discord Community](https://eda.dev/discord)
 
 ---
 
-Connect with us on [Discord](https://eda.dev/discord) for support and community discussions.
+Happy automating and exploring your network with EDA Telemetry Lab! 🚀

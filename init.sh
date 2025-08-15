@@ -15,6 +15,30 @@ install-uv
 uv tool install git+https://github.com/eda-labs/clab-connector.git
 uv tool upgrade clab-connector
 
+# Check if EDA CX variant is installed (before helm install)
+echo "Checking for EDA CX variant..."
+CX_PODS=$(kubectl get pods -A 2>/dev/null | grep eda-cx || true)
+
+if [[ -n "$CX_PODS" ]]; then
+    echo "EDA CX variant detected."
+    IS_CX=true
+    NODE_PREFIX="eda-st"
+else
+    echo "Containerlab variant detected (no CX pods found)."
+    IS_CX=false
+    NODE_PREFIX="clab-eda-st"
+fi
+
+# Update Grafana dashboard with correct node prefix
+DASHBOARD_FILE="charts/telemetry-stack/files/grafana/dashboards/st.json"
+if [[ -f "$DASHBOARD_FILE" ]]; then
+    echo "Updating Grafana dashboard with node prefix: $NODE_PREFIX"
+    # First replace clab-eda-st with a temporary marker, then replace eda-st, then replace marker with final prefix
+    sed -i.bak "s/clab-eda-st/__TEMP_MARKER__/g" "$DASHBOARD_FILE"
+    sed -i "s/eda-st/$NODE_PREFIX/g" "$DASHBOARD_FILE"
+    sed -i "s/__TEMP_MARKER__/$NODE_PREFIX/g" "$DASHBOARD_FILE"
+fi
+
 # Install helm chart
 echo "Installing telemetry-stack helm chart..."
 
@@ -101,3 +125,28 @@ echo "kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=
 echo ""
 echo "Or run this in the background:"
 echo "nohup kubectl port-forward -n eda-telemetry service/grafana 3000:3000 --address=0.0.0.0 >/dev/null 2>&1 &"
+
+# Run namespace bootstrap for CX variant if detected
+if [[ "$IS_CX" == "true" ]]; then
+    echo ""
+    echo "Running namespace bootstrap for CX variant..."
+    
+    # Define edactl alias function
+    edactl() {
+        kubectl -n eda-system exec -it $(kubectl -n eda-system get pods \
+            -l eda.nokia.com/app=eda-toolbox -o jsonpath="{.items[0].metadata.name}") \
+            -- edactl "$@"
+    }
+    
+    # Run namespace bootstrap
+    edactl namespace bootstrap eda-st
+    
+    if [ $? -eq 0 ]; then
+        echo "Namespace bootstrap completed successfully."
+    else
+        echo "Warning: Namespace bootstrap failed. You may need to run it manually."
+    fi
+else
+    echo ""
+    echo "Containerlab variant - skipping namespace bootstrap."
+fi

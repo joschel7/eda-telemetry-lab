@@ -19,7 +19,6 @@
   "graphTooltip": 1,
   "id": 1,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -52,8 +51,7 @@
             "scaleDistribution": {
               "type": "linear"
             }
-          },
-          "fieldMinMax": false
+          }
         },
         "overrides": []
       },
@@ -100,7 +98,7 @@
           "reverse": false
         }
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -126,6 +124,10 @@
         "uid": "PBFA97CFB590B2093"
       },
       "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 18,
         "w": 14,
@@ -145,13 +147,16 @@
           "timingsCtr": 0
         },
         "highlighterEnabled": true,
+        "highlighterSelection": "",
         "panZoomEnabled": false,
         "panelConfig": "---\nanchors:\n  thresholds-operstate: &thresholds-operstate\n    - color: \"#FF3154\" # red\n      level: 0\n    - color: \"#4BDD33\" # green\n      level: 1\n  thresholds-traffic: &thresholds-traffic\n    - color: \"#bec8d2\" # grey\n      level: 0\n    - color: \"#4BDD33\" # green\n      level: 200000    # 200 Kbps = 300,000 bps\n    - color: \"#FFFF00\" # yellow\n      level: 500000    # 0.5 Mbps = 500000  bps\n    - color: \"#FF8000\" # orange\n      level: 1000000   # 1 Mbps = 1,000,000 bps\n    - color: \"#FF3154\" # red\n      level: 2000000   # 2 Mbps = 2,000,000 bps\n  label-config: &label-config\n    separator: replace\n    units: bps\n    decimalPoints: 1\n\ncellIdPreamble: cell-\ncells:\n  spine1:ethernet-1/1:leaf1:ethernet-1/49:\n    dataRef: oper-state:spine1:ethernet-1/1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine1:ethernet-1/1:leaf1:ethernet-1/49:\n    dataRef: spine1:ethernet-1/1:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  spine1:ethernet-1/2:leaf2:ethernet-1/49:\n    dataRef: oper-state:spine1:ethernet-1/2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine1:ethernet-1/2:leaf2:ethernet-1/49:\n    dataRef: spine1:ethernet-1/2:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  spine1:ethernet-1/3:leaf3:ethernet-1/49:\n    dataRef: oper-state:spine1:ethernet-1/3\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine1:ethernet-1/3:leaf3:ethernet-1/49:\n    dataRef: spine1:ethernet-1/3:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  spine1:ethernet-1/4:leaf4:ethernet-1/49:\n    dataRef: oper-state:spine1:ethernet-1/4\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine1:ethernet-1/4:leaf4:ethernet-1/49:\n    dataRef: spine1:ethernet-1/4:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  spine2:ethernet-1/1:leaf1:ethernet-1/50:\n    dataRef: oper-state:spine2:ethernet-1/1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine2:ethernet-1/1:leaf1:ethernet-1/50:\n    dataRef: spine2:ethernet-1/1:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  spine2:ethernet-1/2:leaf2:ethernet-1/50:\n    dataRef: oper-state:spine2:ethernet-1/2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine2:ethernet-1/2:leaf2:ethernet-1/50:\n    dataRef: spine2:ethernet-1/2:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  spine2:ethernet-1/3:leaf3:ethernet-1/50:\n    dataRef: oper-state:spine2:ethernet-1/3\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine2:ethernet-1/3:leaf3:ethernet-1/50:\n    dataRef: spine2:ethernet-1/3:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  spine2:ethernet-1/4:leaf4:ethernet-1/50:\n    dataRef: oper-state:spine2:ethernet-1/4\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:spine2:ethernet-1/4:leaf4:ethernet-1/50:\n    dataRef: spine2:ethernet-1/4:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf1:ethernet-1/49:spine1:ethernet-1/1:\n    dataRef: oper-state:leaf1:ethernet-1/49\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf1:ethernet-1/49:spine1:ethernet-1/1:\n    dataRef: leaf1:ethernet-1/49:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf1:ethernet-1/50:spine2:ethernet-1/1:\n    dataRef: oper-state:leaf1:ethernet-1/50\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf1:ethernet-1/50:spine2:ethernet-1/1:\n    dataRef: leaf1:ethernet-1/50:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf1:ethernet-1/1:client1:eth1:\n    dataRef: oper-state:leaf1:ethernet-1/1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf1:ethernet-1/1:client1:eth1:\n    dataRef: leaf1:ethernet-1/1:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf1:ethernet-1/2:client2:eth1:\n    dataRef: oper-state:leaf1:ethernet-1/2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf1:ethernet-1/2:client2:eth1:\n    dataRef: leaf1:ethernet-1/2:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf2:ethernet-1/49:spine1:ethernet-1/2:\n    dataRef: oper-state:leaf2:ethernet-1/49\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf2:ethernet-1/49:spine1:ethernet-1/2:\n    dataRef: leaf2:ethernet-1/49:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf2:ethernet-1/50:spine2:ethernet-1/2:\n    dataRef: oper-state:leaf2:ethernet-1/50\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf2:ethernet-1/50:spine2:ethernet-1/2:\n    dataRef: leaf2:ethernet-1/50:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf2:ethernet-1/1:client1:eth2:\n    dataRef: oper-state:leaf2:ethernet-1/1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf2:ethernet-1/1:client1:eth2:\n    dataRef: leaf2:ethernet-1/1:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf2:ethernet-1/2:client2:eth2:\n    dataRef: oper-state:leaf2:ethernet-1/2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf2:ethernet-1/2:client2:eth2:\n    dataRef: leaf2:ethernet-1/2:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf3:ethernet-1/49:spine1:ethernet-1/3:\n    dataRef: oper-state:leaf3:ethernet-1/49\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf3:ethernet-1/49:spine1:ethernet-1/3:\n    dataRef: leaf3:ethernet-1/49:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf3:ethernet-1/50:spine2:ethernet-1/3:\n    dataRef: oper-state:leaf3:ethernet-1/50\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf3:ethernet-1/50:spine2:ethernet-1/3:\n    dataRef: leaf3:ethernet-1/50:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf3:ethernet-1/1:client3:eth1:\n    dataRef: oper-state:leaf3:ethernet-1/1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf3:ethernet-1/1:client3:eth1:\n    dataRef: leaf3:ethernet-1/1:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf3:ethernet-1/2:client4:eth1:\n    dataRef: oper-state:leaf3:ethernet-1/2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf3:ethernet-1/2:client4:eth1:\n    dataRef: leaf3:ethernet-1/2:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf4:ethernet-1/49:spine1:ethernet-1/4:\n    dataRef: oper-state:leaf4:ethernet-1/49\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf4:ethernet-1/49:spine1:ethernet-1/4:\n    dataRef: leaf4:ethernet-1/49:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf4:ethernet-1/50:spine2:ethernet-1/4:\n    dataRef: oper-state:leaf4:ethernet-1/50\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf4:ethernet-1/50:spine2:ethernet-1/4:\n    dataRef: leaf4:ethernet-1/50:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf4:ethernet-1/1:client3:eth2:\n    dataRef: oper-state:leaf4:ethernet-1/1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf4:ethernet-1/1:client3:eth2:\n    dataRef: leaf4:ethernet-1/1:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  leaf4:ethernet-1/2:client4:eth2:\n    dataRef: oper-state:leaf4:ethernet-1/2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:leaf4:ethernet-1/2:client4:eth2:\n    dataRef: leaf4:ethernet-1/2:out\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client1:eth1:leaf1:ethernet-1/1:\n    dataRef: oper-state:client1:eth1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client1:eth1:leaf1:ethernet-1/1:\n    dataRef: leaf1:ethernet-1/1:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client1:eth2:leaf2:ethernet-1/1:\n    dataRef: oper-state:client1:eth2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client1:eth2:leaf2:ethernet-1/1:\n    dataRef: leaf2:ethernet-1/1:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client2:eth1:leaf1:ethernet-1/2:\n    dataRef: oper-state:client2:eth1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client2:eth1:leaf1:ethernet-1/2:\n    dataRef: leaf1:ethernet-1/2:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client2:eth2:leaf2:ethernet-1/2:\n    dataRef: oper-state:client2:eth2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client2:eth2:leaf2:ethernet-1/2:\n    dataRef: leaf2:ethernet-1/2:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client3:eth1:leaf3:ethernet-1/1:\n    dataRef: oper-state:client3:eth1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client3:eth1:leaf3:ethernet-1/1:\n    dataRef: leaf3:ethernet-1/1:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client3:eth2:leaf4:ethernet-1/1:\n    dataRef: oper-state:client3:eth2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client3:eth2:leaf4:ethernet-1/1:\n    dataRef: leaf4:ethernet-1/1:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client4:eth1:leaf3:ethernet-1/2:\n    dataRef: oper-state:client4:eth1\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client4:eth1:leaf3:ethernet-1/2:\n    dataRef: leaf3:ethernet-1/2:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic\n  client4:eth2:leaf4:ethernet-1/2:\n    dataRef: oper-state:client4:eth2\n    fillColor:\n      thresholds: *thresholds-operstate\n  link_id:client4:eth2:leaf4:ethernet-1/2:\n    dataRef: leaf4:ethernet-1/2:in\n    label: *label-config\n    strokeColor:\n      thresholds: *thresholds-traffic",
         "siteConfig": "",
         "svg": "https://raw.githubusercontent.com/eda-labs/eda-telemetry-lab/refs/heads/main/eda-telemetry-lab.svg",
         "testDataEnabled": false,
-        "timeSliderEnabled": false
+        "timeSliderEnabled": false,
+        "timeSliderMode": "local"
       },
+      "pluginVersion": "1.18.2",
       "targets": [
         {
           "datasource": {
@@ -226,6 +231,7 @@
             "mode": "continuous-GrYlRd"
           },
           "custom": {
+            "axisPlacement": "auto",
             "fillOpacity": 70,
             "hideFrom": {
               "legend": false,
@@ -263,8 +269,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -289,11 +294,12 @@
         "rowHeight": 0.9,
         "showValue": "always",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -330,8 +336,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "red",
@@ -374,7 +379,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -418,8 +423,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -438,6 +442,7 @@
       },
       "id": 53,
       "options": {
+        "alertCustomMessage": "",
         "alwaysVisibleFilter": false,
         "autoScroll": false,
         "browserTabNamePattern": "",
@@ -452,12 +457,22 @@
         "filter": false,
         "groupSelection": false,
         "header": false,
+        "isMinimizeForTable": false,
+        "isMinimizeViewShowCustomIcon": false,
+        "isPinTabsEnabled": false,
         "isUseLocalTime": false,
         "minimizeOutputFormat": "text",
+        "minimizeViewCustomIcon": "",
+        "minimizeViewNativeIcon": "gf-movepane-right",
         "padding": 10,
         "persistent": false,
+        "requestLatency": "low",
         "saveSelectedGroup": false,
         "saveSelectedGroupKey": "",
+        "selectedValues": {
+          "maxCount": 0,
+          "showSelected": false
+        },
         "showGroupTotal": false,
         "showLabel": false,
         "showName": false,
@@ -466,9 +481,15 @@
         "statusSort": false,
         "sticky": false,
         "tabsInOrder": true,
-        "variable": "NE_top"
+        "variable": "NE_top",
+        "wordBreak": "normal"
       },
-      "pluginVersion": "3.7.0",
+      "pluginVersion": "4.1.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
       "title": "Node Selection",
       "type": "volkovlabs-variable-panel"
     },
@@ -527,8 +548,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -551,10 +571,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -642,8 +664,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -666,10 +687,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -720,8 +743,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -751,8 +773,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "red",
-                      "value": null
+                      "color": "red"
                     },
                     {
                       "color": "#EAB839",
@@ -787,8 +808,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "red",
-                      "value": null
+                      "color": "red"
                     },
                     {
                       "color": "#EAB839",
@@ -823,8 +843,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "red",
-                      "value": null
+                      "color": "red"
                     },
                     {
                       "color": "yellow",
@@ -863,7 +882,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -987,18 +1006,21 @@
           "values": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
+          "direction": "backward",
           "editorMode": "code",
-          "expr": "{component=\"kafka-alarms\", namespace_name=\"clab-eda-st\"} | json",
+          "expr": "{component=\"kafka-alarms\", namespace_name=\"$namespace\"} | json",
           "queryType": "range",
           "refId": "A"
         }
@@ -1095,8 +1117,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1123,19 +1144,21 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
+          "direction": "backward",
           "editorMode": "code",
-          "expr": "count_over_time({component=\"kafka-deviations\", namespace_name=\"clab-eda-st\"} | json | keep spec_nodeEndpoint [1m]  )",
+          "expr": "count_over_time({component=\"kafka-deviations\", namespace_name=\"$namespace\"} | json | keep spec_nodeEndpoint [1m]  )",
           "legendFormat": "",
           "queryType": "range",
           "refId": "A",
@@ -1198,8 +1221,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1227,19 +1249,21 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
+          "direction": "backward",
           "editorMode": "code",
-          "expr": "count_over_time({component=\"kafka-alarms\", namespace_name=\"clab-eda-st\"} | json| keep type [1m])",
+          "expr": "count_over_time({component=\"kafka-alarms\", namespace_name=\"$namespace\"} | json| keep type [1m])",
           "queryType": "range",
           "refId": "A"
         }
@@ -1253,6 +1277,10 @@
         "type": "loki",
         "uid": "P8E80F9AEF21F6940"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 10,
         "w": 24,
@@ -1262,6 +1290,7 @@
       "id": 40,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -1270,14 +1299,16 @@
         "sortOrder": "Ascending",
         "wrapLogMessage": false
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
+          "direction": "backward",
           "editorMode": "code",
-          "expr": "{component=\"kafka-alarms\", namespace_name=\"clab-eda-st\"} | json | line_format \"{{if eq .cleared \\\"true\\\"}}-- CLEARED -- {{end}}Severity: {{.severity}} Name: {{.alarm_name}} Description: {{.description}}\"",
+          "expr": "{component=\"kafka-alarms\", namespace_name=\"$namespace\"} | json | line_format \"{{if eq .cleared \\\"true\\\"}}-- CLEARED -- {{end}}Severity: {{.severity}} Name: {{.alarm_name}} Description: {{.description}}\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -1291,6 +1322,10 @@
         "type": "loki",
         "uid": "P8E80F9AEF21F6940"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
         "w": 24,
@@ -1300,6 +1335,7 @@
       "id": 45,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -1308,14 +1344,16 @@
         "sortOrder": "Ascending",
         "wrapLogMessage": false
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
+          "direction": "backward",
           "editorMode": "code",
-          "expr": "{component=\"kafka-deviations\", namespace_name=\"clab-eda-st\"} | json | line_format \"Deviation detected on {{.spec_nodeEndpoint}} {{.spec_path}}\"",
+          "expr": "{component=\"kafka-deviations\", namespace_name=\"$namespace\"} | json | line_format \"Deviation detected on {{.spec_nodeEndpoint}} {{.spec_path}}\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -1373,6 +1411,7 @@
       },
       "id": 47,
       "options": {
+        "alertCustomMessage": "",
         "alwaysVisibleFilter": false,
         "autoScroll": false,
         "browserTabNamePattern": "",
@@ -1387,12 +1426,22 @@
         "filter": false,
         "groupSelection": false,
         "header": true,
+        "isMinimizeForTable": false,
+        "isMinimizeViewShowCustomIcon": false,
+        "isPinTabsEnabled": false,
         "isUseLocalTime": false,
         "minimizeOutputFormat": "text",
+        "minimizeViewCustomIcon": "",
+        "minimizeViewNativeIcon": "gf-movepane-right",
         "padding": 10,
         "persistent": false,
+        "requestLatency": "low",
         "saveSelectedGroup": false,
         "saveSelectedGroupKey": "",
+        "selectedValues": {
+          "maxCount": 0,
+          "showSelected": false
+        },
         "showGroupTotal": false,
         "showLabel": false,
         "showName": false,
@@ -1401,9 +1450,15 @@
         "statusSort": false,
         "sticky": false,
         "tabsInOrder": true,
-        "variable": "NE"
+        "variable": "NE",
+        "wordBreak": "normal"
       },
-      "pluginVersion": "3.7.0",
+      "pluginVersion": "4.1.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
       "title": "Node",
       "type": "volkovlabs-variable-panel"
     },
@@ -1484,10 +1539,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -1618,10 +1675,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -1742,7 +1801,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -1840,7 +1899,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -1927,7 +1986,7 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -2023,7 +2082,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.2.0",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -2079,6 +2138,7 @@
             "mode": "fixed"
           },
           "custom": {
+            "axisPlacement": "auto",
             "fillOpacity": 70,
             "hideFrom": {
               "legend": false,
@@ -2135,10 +2195,12 @@
         "rowHeight": 0.9,
         "showValue": "always",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -2233,10 +2295,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -2303,6 +2367,7 @@
       },
       "id": 52,
       "options": {
+        "alertCustomMessage": "",
         "alwaysVisibleFilter": false,
         "autoScroll": false,
         "browserTabNamePattern": "",
@@ -2317,12 +2382,22 @@
         "filter": false,
         "groupSelection": false,
         "header": true,
+        "isMinimizeForTable": false,
+        "isMinimizeViewShowCustomIcon": false,
+        "isPinTabsEnabled": false,
         "isUseLocalTime": false,
         "minimizeOutputFormat": "text",
+        "minimizeViewCustomIcon": "",
+        "minimizeViewNativeIcon": "gf-movepane-right",
         "padding": 10,
         "persistent": false,
+        "requestLatency": "low",
         "saveSelectedGroup": false,
         "saveSelectedGroupKey": "",
+        "selectedValues": {
+          "maxCount": 0,
+          "showSelected": false
+        },
         "showGroupTotal": false,
         "showLabel": false,
         "showName": false,
@@ -2331,9 +2406,15 @@
         "statusSort": false,
         "sticky": false,
         "tabsInOrder": true,
-        "variable": "NE"
+        "variable": "NE",
+        "wordBreak": "normal"
       },
-      "pluginVersion": "3.7.0",
+      "pluginVersion": "4.1.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
       "title": "Node",
       "type": "volkovlabs-variable-panel"
     },
@@ -2342,6 +2423,10 @@
         "default": false,
         "type": "loki",
         "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 13,
@@ -2352,6 +2437,7 @@
       "id": 37,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
@@ -2360,6 +2446,7 @@
         "sortOrder": "Ascending",
         "wrapLogMessage": true
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -2422,10 +2509,12 @@
           "values": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -2479,6 +2568,7 @@
       },
       "id": 54,
       "options": {
+        "alertCustomMessage": "",
         "alwaysVisibleFilter": false,
         "autoScroll": false,
         "browserTabNamePattern": "",
@@ -2493,12 +2583,22 @@
         "filter": false,
         "groupSelection": false,
         "header": true,
+        "isMinimizeForTable": false,
+        "isMinimizeViewShowCustomIcon": false,
+        "isPinTabsEnabled": false,
         "isUseLocalTime": false,
         "minimizeOutputFormat": "text",
+        "minimizeViewCustomIcon": "",
+        "minimizeViewNativeIcon": "gf-movepane-right",
         "padding": 10,
         "persistent": false,
+        "requestLatency": "low",
         "saveSelectedGroup": false,
         "saveSelectedGroupKey": "",
+        "selectedValues": {
+          "maxCount": 0,
+          "showSelected": false
+        },
         "showGroupTotal": false,
         "showLabel": false,
         "showName": false,
@@ -2507,9 +2607,15 @@
         "statusSort": false,
         "sticky": false,
         "tabsInOrder": true,
-        "variable": "syslog_app"
+        "variable": "syslog_app",
+        "wordBreak": "normal"
       },
-      "pluginVersion": "3.7.0",
+      "pluginVersion": "4.1.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
       "title": "Syslog App",
       "type": "volkovlabs-variable-panel"
     },
@@ -2586,10 +2692,12 @@
           "showLegend": true
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
           "datasource": {
@@ -2607,14 +2715,14 @@
       "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "5s",
-  "schemaVersion": 39,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "leaf1",
           "value": "leaf1"
         },
@@ -2625,7 +2733,6 @@
         "definition": "label_values(node_name)",
         "hide": 2,
         "includeAll": false,
-        "multi": false,
         "name": "NE",
         "options": [],
         "query": {
@@ -2635,15 +2742,13 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "mgmt",
+          "value": "mgmt"
         },
         "datasource": {
           "type": "prometheus",
@@ -2652,7 +2757,6 @@
         "definition": "label_values(network_instance_name)",
         "hide": 2,
         "includeAll": false,
-        "multi": false,
         "name": "Services",
         "options": [],
         "query": {
@@ -2662,13 +2766,10 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
           "text": "sr_aaa_mgr",
           "value": "sr_aaa_mgr"
         },
@@ -2679,7 +2780,6 @@
         "definition": "",
         "hide": 2,
         "includeAll": false,
-        "multi": false,
         "name": "Logs",
         "options": [],
         "query": {
@@ -2690,23 +2790,19 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       },
       {
         "current": {
-          "selected": false,
-          "text": "true",
-          "value": "true"
+          "text": "",
+          "value": ""
         },
         "hide": 2,
         "includeAll": false,
-        "multi": false,
         "name": "cleared_status",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "true",
             "value": "true"
           },
@@ -2717,12 +2813,10 @@
           }
         ],
         "query": "true, false",
-        "skipUrlSync": false,
         "type": "custom"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "leaf1"
           ],
@@ -2747,21 +2841,23 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
         "type": "query"
       },
       {
+        "current": {
+          "text": "clab-eda-st",
+          "value": "clab-eda-st"
+        },
         "hide": 2,
         "label": "namespace",
         "name": "namespace",
         "query": "clab-eda-st",
-        "skipUrlSync": false,
+        "skipUrlSync": true,
         "type": "constant"
       },
       {
         "current": {
-          "selected": true,
           "text": [
             "sr_aaa_mgr"
           ],
@@ -2788,8 +2884,6 @@
         },
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -2798,23 +2892,9 @@
     "from": "now-5m",
     "to": "now"
   },
-  "timepicker": {
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ]
-  },
+  "timepicker": {},
   "timezone": "",
   "title": "Telemetry Playground",
   "uid": "Telemetry_Playground",
-  "version": 13,
-  "weekStart": ""
+  "version": 7
 }
