@@ -74,40 +74,40 @@ restart_iperf_servers() {
     echo "iperf3 servers restarted successfully"
 }
 
-# Function to start tests from server4 toward server1
+# Function to start tests from server4 toward server2
 start_server4() {
-    echo "Starting iperf3 traffic from server4 (${SERVER4_CONTAINER}) to server1..."
+    echo "Starting iperf3 traffic from server4 (${SERVER4_CONTAINER}) to server2..."
     # Only one instance per endpoint (servers can only handle one connection at a time)
-    echo "  - Starting test: ${SERVER4_CONTAINER} -> ${SERVER1_IP_TCP}:${PORT1}"
+    echo "  - Starting test: ${SERVER4_CONTAINER} -> ${SERVER2_IP_TCP}:${PORT1}"
     sudo docker exec -d "${SERVER4_CONTAINER}" \
-        timeout $((DURATION + 10)) \
-        iperf3 -c "${SERVER1_IP_TCP}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT1}" \
-            -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" \
-            --connect-timeout 5000 >/dev/null 2>&1
-
-    echo "  - Starting test: ${SERVER4_CONTAINER} -> ${SERVER1_IP_VLAN}:${PORT2}"
-    sudo docker exec -d "${SERVER4_CONTAINER}" \
-        timeout $((DURATION + 10)) \
-        iperf3 -c "${SERVER1_IP_VLAN}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT2}" \
-            -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" \
-            --connect-timeout 5000 >/dev/null 2>&1
-}
-
-# Function to start tests from server3 toward server2
-start_server3() {
-    echo "Starting iperf3 traffic from server3 (${SERVER3_CONTAINER}) to server2..."
-    # Only one instance per endpoint (servers can only handle one connection at a time)
-    echo "  - Starting test: ${SERVER3_CONTAINER} -> ${SERVER2_IP_TCP}:${PORT1}"
-    sudo docker exec -d "${SERVER3_CONTAINER}" \
         timeout $((DURATION + 10)) \
         iperf3 -c "${SERVER2_IP_TCP}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT1}" \
             -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" \
             --connect-timeout 5000 >/dev/null 2>&1
 
-    echo "  - Starting test: ${SERVER3_CONTAINER} -> ${SERVER2_IP_VLAN}:${PORT2}"
-    sudo docker exec -d "${SERVER3_CONTAINER}" \
+    echo "  - Starting test: ${SERVER4_CONTAINER} -> ${SERVER2_IP_VLAN}:${PORT2}"
+    sudo docker exec -d "${SERVER4_CONTAINER}" \
         timeout $((DURATION + 10)) \
         iperf3 -c "${SERVER2_IP_VLAN}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT2}" \
+            -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" \
+            --connect-timeout 5000 >/dev/null 2>&1
+}
+
+# Function to start tests from server3 toward server1
+start_server3() {
+    echo "Starting iperf3 traffic from server3 (${SERVER3_CONTAINER}) to server1..."
+    # Only one instance per endpoint (servers can only handle one connection at a time)
+    echo "  - Starting test: ${SERVER3_CONTAINER} -> ${SERVER1_IP_TCP}:${PORT1}"
+    sudo docker exec -d "${SERVER3_CONTAINER}" \
+        timeout $((DURATION + 10)) \
+        iperf3 -c "${SERVER1_IP_TCP}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT1}" \
+            -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" \
+            --connect-timeout 5000 >/dev/null 2>&1
+
+    echo "  - Starting test: ${SERVER3_CONTAINER} -> ${SERVER1_IP_VLAN}:${PORT2}"
+    sudo docker exec -d "${SERVER3_CONTAINER}" \
+        timeout $((DURATION + 10)) \
+        iperf3 -c "${SERVER1_IP_VLAN}" -t "${DURATION}" -i "${INTERVAL}" -p "${PORT2}" \
             -P "${PARALLEL}" -w ${WINDOW} -b "${BANDWIDTH}" -M "${MSS}" \
             --connect-timeout 5000 >/dev/null 2>&1
 }
