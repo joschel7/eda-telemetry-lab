@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ip link add bond0 type bond mode 802.3ad xmit_hash_policy layer3+4
 ip link set addr 00:c1:ab:01:01:01 dev bond0
 ip link set eth1 down

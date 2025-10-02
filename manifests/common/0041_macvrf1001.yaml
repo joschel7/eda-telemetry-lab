@@ -1,18 +1,18 @@
-apiVersion: services.eda.nokia.com/v1alpha1
+apiVersion: services.eda.nokia.com/v1
 kind: VirtualNetwork
 metadata:
   name: macvrf1001
-  namespace: clab-eda-st
+  namespace: eda-telemetry
 spec:
   bridgeDomains:
     - name: macvrf1001
       spec:
         eviPool: evi-pool
-        macDuplicationDetection:
-          enabled: true
+        macAging: 300
+        macLearning: true
         tunnelIndexPool: tunnel-index-pool
+        type: EVPNVXLAN
         vniPool: vni-pool
-        macLimit: 250
   vlans:
     - name: macvrf1001
       spec:
