@@ -1,5 +1,24 @@
 #!/bin/bash
 
+function check-required-binaries {
+    local missing_binaries=()
+    
+    if ! command -v kubectl &> /dev/null; then
+        missing_binaries+=("kubectl")
+    fi
+    
+    if ! command -v helm &> /dev/null; then
+        missing_binaries+=("helm")
+    fi
+    
+    if [ ${#missing_binaries[@]} -gt 0 ]; then
+        echo "Error: Required binaries not found: ${missing_binaries[*]}"
+        echo "Please install the missing binaries before running this script."
+        echo "  https://github.com/eda-labs/eda-telemetry-lab?tab=readme-ov-file#requirements"
+        exit 1
+    fi
+}
+
 function install-uv {
     # error if uv is not in the path
     if ! command -v uv &> /dev/null;
@@ -11,6 +30,9 @@ function install-uv {
 }
 
 indent_out() { sed 's/^/    /'; }
+
+# Check required binaries before proceeding
+check-required-binaries
 
 # Term colors
 GREEN="\033[0;32m"
