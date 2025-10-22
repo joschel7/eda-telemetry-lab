@@ -2801,14 +2801,14 @@
           "type": "prometheus",
           "uid": "PBFA97CFB590B2093"
         },
-        "definition": "label_values(node_name)",
+        "definition": "label_values({namespace_name=\"$namespace\"},node_name)",
         "hide": 2,
         "includeAll": false,
         "name": "NE",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(node_name)",
+          "query": "label_values({namespace_name=\"$namespace\"},node_name)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -2899,7 +2899,7 @@
           "type": "prometheus",
           "uid": "PBFA97CFB590B2093"
         },
-        "definition": "label_values(node_name)",
+        "definition": "label_values({namespace_name=\"$namespace\"},node_name)",
         "hide": 2,
         "includeAll": false,
         "multi": true,
@@ -2907,7 +2907,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(node_name)",
+          "query": "label_values({namespace_name=\"$namespace\"},node_name)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
